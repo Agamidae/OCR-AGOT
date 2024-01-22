@@ -1,0 +1,221 @@
+types AGOT_OCR_Types {
+  type agot_patron_tab_button = button_text {
+    onclick = "[GetVariableSystem.Toggle('patron_window')]"
+    layoutpolicy_horizontal = expanding
+    visible = "[EqualTo_string(GetPlayer.GetFaith.GetReligion.GetNameNoTooltip,Localize('faith_of_the_seven_religion'))]"
+    blockoverride "text" {
+      raw_text = "FAITH_PATRON"
+    }
+    blockoverride "extra" {
+      text_single = {
+        raw_text = ", 5."
+      }
+    }
+    shortcut = "speed_5"
+  }
+
+  type window_faith_patron_tab = window {
+    size = { 100% 100% }
+    visible = "[GetVariableSystem.Exists('patron_window')]"
+
+    state = {
+      name = _show
+      using = Animation_FadeIn_Quick
+      on_start = "[GetScriptedGui('get_patron_god_list').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]"
+    }
+
+    state = {
+      name = _hide
+      alpha = 0
+      on_start = "[GetScriptedGui('clear_patron_god_list').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End)]"
+    }
+    using = Window_Background_Subwindow
+
+    vbox = {
+      layoutpolicy_horizontal = expanding
+      layoutpolicy_vertical = expanding
+
+      scrollbox = {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+
+        blockoverride "scrollbox_content" {
+
+          button = {
+            shortcut = close_window
+            onclick = "[GetVariableSystem.Clear('patron_window')]"
+          }
+
+          blockoverride "scrollbox_background" { }
+          blockoverride "scrollbox_background_fade" { }
+
+
+          patron_menu = {
+
+          }
+        }
+      }
+    }
+  }
+
+  type patron_menu = vbox {
+    layoutpolicy_horizontal = expanding
+    layoutpolicy_vertical = expanding
+
+    scrollbox = {
+      layoutpolicy_horizontal = expanding
+      layoutpolicy_vertical = expanding
+
+      blockoverride "scrollbox_content"
+      {
+        text_single = {
+          layoutpolicy_horizontal = expanding
+          raw_text = "[Localize('PATRON_SELECTION_TOOLTIP')]."
+        }
+
+        button_text = {
+          layoutpolicy_horizontal = expanding
+          blockoverride "pre" {
+            spacing = 3
+            text_single = {
+              raw_text = "[GetDataModelSize(GetPlayer.MakeScope.GetList('patron_gods'))] patrons."
+            }
+          }
+          blockoverride "text" {
+            raw_text = "[Select_CString(GetVariableSystem.Exists('patron_desc'),'Show', 'Hide')] effects, Shift D. View tooltips for descriptions."
+          }
+          shortcut = mapmode_house_secondary
+          onclick = "[GetVariableSystem.Toggle('patron_desc')]"
+        }
+
+        vbox = {
+          layoutpolicy_horizontal = expanding
+
+          ## Faith of the Seven
+
+          datamodel = "[GetPlayer.MakeScope.GetList('patron_gods')]"
+
+          item = {
+            patron_selection = {
+              #datacontext = "[GetScriptedGui( Concatenate('choose_patron_', Scope.GetFlagName))]"
+              datacontext = "[GetScriptedGui('choose_patron_generic')]"
+              datacontext = "[GetModifier(Concatenate('patron_', Concatenate(Scope.GetFlagName ,'_modifier')))]"
+            }
+          }
+        }
+      }
+    }
+  }
+
+  type patron_selection = vbox {
+    name = "patron_view"
+    widgetid = "patron_view"
+    layoutpolicy_horizontal = expanding
+
+    button_text = {
+      layoutpolicy_horizontal = expanding
+      onclick = "[GetVariableSystem.Set('selected_patron', Scope.GetFlagName)]"
+      onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'patron_name', MakeScopeFlag( GetVariableSystem.Get( 'selected_patron' ))).End )]"
+      enabled = "[Or(EqualTo_string(GetPlayer.MakeScope.Var('patron_god').GetFlagName, Scope.GetFlagName), ScriptedGui.IsValid(GuiScope.SetRoot( GetPlayer.MakeScope ).End))]"
+
+      blockoverride "disabled" {
+        visible = "[Not(ScriptedGui.IsValid(GuiScope.SetRoot( GetPlayer.MakeScope ).End))]"
+      }
+      tooltip = "[Localize( Concatenate( 'patron_god_desc_', Scope.GetFlagName ))]"
+      blockoverride "pre" {
+        spacing = 3
+
+        # text_single = {
+        #   raw_text = "Select"
+        #   visible = "[Not(EqualTo_string(GetPlayer.MakeScope.Var('patron_god').GetFlagName, Scope.GetFlagName))]"
+        # }
+        text_single = {
+          visible = "[EqualTo_string(GetPlayer.MakeScope.Var('patron_god').GetFlagName, Scope.GetFlagName)]"
+          raw_text = "Selected,"
+        }
+
+        text_single = {
+          raw_text = "[Localize(Concatenate('patron_god_', Scope.GetFlagName))]."
+        }
+
+      }
+    }
+
+    text_single = {
+      visible = "[Not(GetVariableSystem.Exists('patron_desc'))]"
+      layoutpolicy_horizontal = expanding
+      block "effect_text" {
+        text = "[StaticModifier.GetDescWithEffects]"
+      }
+    }
+  }
+
+  # we don't need to change special grouping, it's basically the same
+  type vbox_agot_extra_doctrines = vbox {
+    layoutpolicy_horizontal = expanding
+
+
+    text_single = {
+      layoutpolicy_horizontal = expanding
+      raw_text = "[GetDataModelSize(FaithWindow.GetGroupingHelper( 'belief' ).GetGrouping)] [Localize('FAITH_DOCTRINES_BELIEF')]."
+    }
+
+    vbox = {
+      datamodel = "[FaithWindow.GetGroupingHelper( 'belief' ).GetGrouping]"
+      layoutpolicy_horizontal = expanding
+
+      item = {
+        widget_doctrine_item_ocr = { }
+      }
+    }
+
+    text_single = {
+      layoutpolicy_horizontal = expanding
+      raw_text = "[GetDataModelSize(FaithWindow.GetGroupingHelper( 'practices' ).GetGrouping)] [Localize('FAITH_DOCTRINES_PRACTICES')]."
+    }
+
+    vbox = {
+      datamodel = "[FaithWindow.GetGroupingHelper( 'practices' ).GetGrouping]"
+      layoutpolicy_horizontal = expanding
+
+      item = {
+        widget_doctrine_item_ocr = { }
+      }
+    }
+  }
+
+  type vbox_agot_extra_doctrines_create = vbox {
+    layoutpolicy_horizontal = expanding
+
+
+    text_single = {
+      layoutpolicy_horizontal = expanding
+      raw_text = "[GetDataModelSize(FaithCreationWindow.GetGroupingHelper( 'belief' ).GetGrouping)] [Localize('FAITH_DOCTRINES_BELIEF')]."
+    }
+
+    vbox = {
+      datamodel = "[FaithCreationWindow.GetGroupingHelper( 'belief' ).GetGrouping]"
+      layoutpolicy_horizontal = expanding
+
+      item = {
+        widget_doctrine_selection_item_ocr = { }
+      }
+    }
+
+    text_single = {
+      layoutpolicy_horizontal = expanding
+      raw_text = "[GetDataModelSize(FaithCreationWindow.GetGroupingHelper( 'practices' ).GetGrouping)] [Localize('FAITH_DOCTRINES_PRACTICES')]."
+    }
+
+    vbox = {
+      datamodel = "[FaithCreationWindow.GetGroupingHelper( 'practices' ).GetGrouping]"
+      layoutpolicy_horizontal = expanding
+
+      item = {
+        widget_doctrine_selection_item_ocr = { }
+      }
+    }
+  }
+
+  # hbox_character_subheading isn't used
+}

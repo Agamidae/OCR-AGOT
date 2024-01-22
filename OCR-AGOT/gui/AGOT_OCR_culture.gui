@@ -1,0 +1,3 @@
+template agot_show_hybridize_culture {
+	visible = "[And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) )]"
+}

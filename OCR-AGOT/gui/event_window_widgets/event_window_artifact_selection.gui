@@ -1,0 +1,55 @@
+widget = {
+	allow_outside = yes
+	name = "event_window_artifact_selection"
+	size = { 480 250 }
+	layoutpolicy_horizontal = expanding
+
+	vbox = {
+		datacontext = "[GetPlayer.MakeScope]"
+		allow_outside = yes
+		layoutpolicy_horizontal = expanding
+
+		scrollbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			minimumsize = { 480 180 }
+			blockoverride "scrollbox_content" {
+				vbox = {
+					datamodel = "[Scope.GetList('possible_artifacts')]"
+					layoutpolicy_horizontal = expanding
+
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						raw_text = "[GetDataModelSize(Scope.GetList('possible_artifacts'))] options, see tooltips."
+					}
+
+					item = {
+						button_text = {
+							layoutpolicy_horizontal = expanding
+							datacontext = "[Scope.Artifact]"
+							tooltipwidget = {
+								artifact_tooltip = {
+									blockoverride "hide_artifact_creator" {
+										visible = no
+									}
+								}
+							}
+							blockoverride "pre" {
+							}
+							blockoverride "selected" {
+								visible = "[GetScriptedGui( 'agot_artifact_selecting' ).IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'selected_artifact', Artifact.MakeScope ).End )]"
+							}
+
+							onclick = "[GetScriptedGui( 'agot_artifact_selecting' ).Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'selected_artifact', Artifact.MakeScope ).End )]"
+							blockoverride "text" {
+								raw_text = "[Scope.Artifact.GetNameNoTooltip]."
+								alwaystransparent = yes
+							}
+						}
+					}
+				}
+				spacer = { size = { 0 5 } }
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+types AGOT_OCR_preload {
+    type agot_ocr_mod_changes = text_multi {
+		autoresize = yes
+		text = "agot_ocr_mod_changes"
+		max_width = 900
+	}
+}

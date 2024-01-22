@@ -1,0 +1,4 @@
+﻿macro = {
+	definition = "IsFeudalAGOT"
+	replace_with = "Or(Character.GetGovernment.IsType('feudal_government'), Character.GetGovernment.IsType('lp_feudal_government'))"
+}

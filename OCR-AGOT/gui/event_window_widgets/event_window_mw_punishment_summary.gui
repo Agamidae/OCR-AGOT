@@ -1,0 +1,15 @@
+vbox = {
+	allow_outside = yes
+	name = "event_window_mw_punishment_summary"  #Box above options stating what will happen once the punishment executes
+	layoutpolicy_horizontal = expanding
+	using = force_ocr
+
+	# MegaWarsPunishmentSummary = {
+	# 	# using = vanilla
+	# 	# visible = no
+	# }
+
+	MegaWarsPunishmentSummary_ocr = {
+		# using = ocr
+	}
+}

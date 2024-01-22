@@ -1,0 +1,11 @@
+types OCR
+{
+	### Icon buttons 60px
+
+	type button_change_castellan_task = button_text # AGOT Added
+	{
+		blockoverride "text" {
+			raw_text = "Reset task"
+		}
+	}
+}

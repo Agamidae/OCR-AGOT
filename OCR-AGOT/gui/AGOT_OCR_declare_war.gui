@@ -1,0 +1,320 @@
+template agot_rv_save_defender {
+  on_start = "[GetScriptedGui('rv_save_defender').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_defender', Character.MakeScope ).End )]"
+}
+template agot_rv_clear_revenge_list {
+  on_start = "[GetScriptedGui('rv_clear_revenge_list').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+  on_start = "[GetScriptedGui('rv_clear_concubine_list').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+}
+template agot_show_war_comparison {
+  visible = "[Not(Or(EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel),EqualTo_string(Localize('REVENGE_WAR_NAME'),CasusBelliItem.GetLabel)))]"
+}
+template agot_show_cb {
+  visible = "[Or(Not(EqualTo_string(Localize('rv_declare_private_war_interaction'),CharacterInteractionConfirmationWindow.GetSendName)),Or(EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel),EqualTo_string(Localize('REVENGE_WAR_NAME'),CasusBelliItem.GetLabel)))]"
+  onclick = "[GetScriptedGui('rv_create_revenge_list').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_defender', Character.MakeScope ).End )]"
+  onclick = "[GetScriptedGui('rv_create_concubine_list').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_defender', Character.MakeScope ).End )]"
+  # refresh is just fade in/out
+}
+types OCR {
+  type agot_liege_join_warning = text_single {
+    layoutpolicy_horizontal = expanding
+    datacontext = "[DeclareWarInteractionWindow.GetSelectedCasusBelliItem]"
+    visible = "[Or(EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel),EqualTo_string(Localize('REVENGE_WAR_NAME'),CasusBelliItem.GetLabel))]"
+    raw_text = "warning, [Localize('rv_liege_warning')]."
+  }
+
+  type vbox_agot_rv_targets = vbox {
+    layoutpolicy_horizontal = expanding
+
+    vbox = {
+      layoutpolicy_horizontal = expanding
+      visible = "[EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel)]"
+      datacontext = "[DeclareWarInteractionWindow.GetDefenderCharacter]"
+      datacontext = "[CharacterItem.GetCharacter]"
+
+      vbox_agot_war_targets = {
+        datamodel = "[Character.GetPrisoners]"
+
+        text_single = {
+          layoutpolicy_horizontal = expanding
+          raw_text = "[GetDataModelSize(Character.GetPrisoners)] prisoners, select:"
+        }
+      }
+      vbox_agot_war_targets = {
+        datamodel = "[GetPlayer.MakeScope.GetList('rv_defender_concubines')]"
+        blockoverride "scope" {
+          datacontext = "[Scope.GetCharacter]"
+        }
+
+        text_single = {
+          layoutpolicy_horizontal = expanding
+          raw_text = "[GetDataModelSize(GetPlayer.MakeScope.GetList('rv_defender_concubines'))] concubines to free:"
+        }
+      }
+    }
+
+    vbox = {
+      layoutpolicy_horizontal = expanding
+      visible = "[EqualTo_string(Localize('REVENGE_WAR_NAME'),CasusBelliItem.GetLabel)]"
+      datacontext = "[DeclareWarInteractionWindow.GetAttackerCharacter]"
+      datacontext = "[CharacterItem.GetCharacter]"
+
+      vbox_agot_war_avenge_them = {
+        text_single = {
+          layoutpolicy_horizontal = expanding
+          raw_text = "[GetDataModelSize(Character.MakeScope.GetList('rv_to_be_revenged'))] victims to be avenged:"
+        }
+
+        blockoverride "datamodelFirst" {
+          datamodel = "[DataModelFirst(Character.MakeScope.GetList('rv_to_be_revenged'), '(int32)3')]"
+        }
+        blockoverride "datamodelMore" {
+          visible = "[GreaterThan_int32(GetDataModelSize(Character.MakeScope.GetList('rv_to_be_revenged')), '(int32)3')]"
+        }
+        blockoverride "datamodelFull" {
+          datamodel = "[Character.MakeScope.GetList('rv_to_be_revenged')]"
+        }
+        blockoverride "who" {
+          raw_text = "Victims:"
+        }
+      }
+
+      vbox_agot_war_avenge_them = {
+        text_single = {
+          layoutpolicy_horizontal = expanding
+          raw_text = "[GetDataModelSize(Character.MakeScope.GetList('rv_revenging_dead_lovers'))] lovers to be avenged:"
+        }
+      }
+    }
+  }
+
+  type vbox_agot_war_targets = vbox {
+    layoutpolicy_horizontal = expanding
+
+    item = {
+      button_text = {
+        block "scope" {}
+        layoutpolicy_horizontal = expanding
+        visible =  "[GetScriptedGui('rv_rescue_visible_trigger').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Character.MakeScope ).End )]"
+
+        onclick = "[GetScriptedGui('rv_toggle_prisoner').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Character.MakeScope ).End )]"
+
+        blockoverride "selected" {
+          visible =	"[GetScriptedGui('rv_rescue_trigger').IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Character.MakeScope ).End )]"
+        }
+
+        blockoverride "extra" {
+          text_single = {
+            raw_text = "[Character.GetShortUIName],"
+          }
+          #TODO add relations?
+          text_single = {
+            raw_text = "criminal,"
+            visible =  "[GetScriptedGui('rv_criminal_warning_icon_visible').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Character.MakeScope ).End )]"
+            tooltip = "RV_IS_CRIMINAL"
+          }
+        }
+      }
+    }
+  }
+
+  type vbox_agot_war_avenge_them = vbox {
+    layoutpolicy_horizontal = expanding
+
+    hbox = {
+      layoutpolicy_horizontal = expanding
+
+      block "datamodelFirst" {
+        datamodel = "[DataModelFirst(Character.MakeScope.GetList('rv_revenging_dead_lovers'), '(int32)3')]"
+      }
+
+      item = {
+        button_text = {
+          using = char_click
+          datacontext = "[Scope.GetCharacter]"
+          blockoverride "text" {
+            raw_text = "[Character.GetFirstNameNoTooltip],"
+          }
+        }
+      }
+
+      text_single = {
+        block "datamodelMore" {
+          visible = "[GreaterThan_int32(GetDataModelSize(Character.MakeScope.GetList('rv_revenging_dead_lovers')), '(int32)3')]"
+        }
+        raw_text = "see tooltip for more."
+      }
+
+      tooltipwidget = {
+        container = {
+          alwaystransparent = no
+          using = DefaultTooltipBackground
+
+          flowcontainer = {
+            ignoreinvisible = yes
+            direction = vertical
+            margin = { 10 10 }
+
+            block "datamodelFull" {
+              datamodel = "[Character.MakeScope.GetList('rv_revenging_dead_lovers')]"
+            }
+
+            text_single = {
+              block "who" {
+                raw_text = "Lovers:"
+              }
+            }
+
+            item = {
+              char_name = {
+                datacontext = "[Scope.GetCharacter]"
+              }
+            }
+          }
+        }
+      }
+      using = tooltip_ne
+
+      expand = {}
+    }
+  }
+
+  type hbox_agot_rescue_list = vbox {
+    datacontext = "[DeclareWarInteractionWindow.GetSelectedCasusBelliItem]"
+    visible = "[EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel)]"
+    layoutpolicy_horizontal = expanding
+
+    text_single = {
+      layoutpolicy_horizontal = expanding
+      visible = "[DeclareWarInteractionWindow.IsEffectsTabVictory]"
+      raw_text = "[GetDataModelSize(GetPlayer.MakeScope.GetList('rv_rescue_list_temp'))] prisoners:"
+
+      using = tooltip_ne
+      tooltipwidget = {
+        container = {
+          alwaystransparent = no
+          using = DefaultTooltipBackground
+
+          flowcontainer = {
+            ignoreinvisible = yes
+            margin = { 10 10 }
+            direction = vertical
+            datamodel = "[GetPlayer.MakeScope.GetList('rv_rescue_list_temp')]"
+
+            text_single = {
+              raw_text = "Will be set free:"
+            }
+
+            item = {
+              char_name = {
+                datacontext = "[Scope.GetCharacter]"
+                visible = "[GetScriptedGui('rv_rescue_visible_trigger').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Scope.GetCharacter.MakeScope ).End )]"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    vbox = {
+      visible = "[DeclareWarInteractionWindow.IsEffectsTabVictory]"
+      layoutpolicy_horizontal = expanding
+      datamodel = "[GetPlayer.MakeScope.GetList('rv_rescue_list_temp')]"
+      item = {
+        hbox = {
+          layoutpolicy_horizontal = expanding
+          visible = "[GetScriptedGui('rv_rescue_visible_trigger').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Scope.GetCharacter.MakeScope ).End )]"
+          layoutpolicy_horizontal = expanding
+          text_multi = {
+            text = "rv_release_effect"
+            layoutpolicy_horizontal = expanding
+            autoresize = yes
+            max_width = 360
+          }
+
+          expand = {}
+        }
+      }
+    }
+  }
+
+  type hbox_declare_war_buttons = hbox {
+		layoutpolicy_horizontal = expanding
+		name = "declare_war_send_button"
+    datacontext = "[DeclareWarInteractionWindow.GetSelectedCasusBelliItem]"
+
+		button_declare_war = {
+			name = "send_button"
+      visible = "[Not(EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel))]"
+		}
+
+    button_declare_war = {
+      visible = "[EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel)]"
+
+      blockoverride "disable_declare_war" {
+        enabled =  "[GetScriptedGui('rv_can_send_rescue_war').IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+
+        blockoverride "disabled" {
+          visible =  "[Not(GetScriptedGui('rv_can_send_rescue_war').IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).End ))]"
+        }
+      }
+    }
+
+		expand = { }
+	}
+
+  type flow_agot_join_megawar = flowcontainer {
+    ignoreinvisible = yes
+    direction = vertical
+
+    button_text = {
+      blockoverride "text" {
+        text = "MW_GUI_JOIN_SIDE"
+      }
+      blockoverride "extra" {
+        text_single = {
+          raw_text = " on [Character.GetFirstNameNicknamedPossessiveOrMyNoTooltip] side."
+        }
+      }
+      datacontext = "[WarOverviewWindow.GetLeftSideLeaderItem]"
+      datacontext = "[WarParticipantItem.GetCharacter]"
+
+      visible = "[GetScriptedGui('agot_mw_gui_join_selected_leader').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('selected_leader', WarOverviewWindow.GetLeftSideLeaderItem.GetCharacter.MakeScope).End)]"
+      #enabled = "[GetScriptedGui('agot_mw_gui_join_selected_leader').IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('selected_leader', WarOverviewWindow.GetLeftSideLeaderItem.GetCharacter.MakeScope).End)]"
+
+      onclick = "[GetScriptedGui('agot_mw_gui_join_selected_leader').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('selected_leader', WarOverviewWindow.GetLeftSideLeaderItem.GetCharacter.MakeScope).End)]"
+      #tooltip = MEGA_WARS_GUI_JOIN_REBELS
+    }
+
+    button_text = {
+      blockoverride "text" {
+        text = MW_GUI_JOIN_SIDE
+      }
+      blockoverride "extra" {
+        text_single = {
+          raw_text = " on [Character.GetFirstNameNicknamedPossessiveOrMyNoTooltip] side."
+        }
+      }
+      datacontext = "[WarOverviewWindow.GetRightSideLeaderItem]"
+      datacontext = "[WarParticipantItem.GetCharacter]"
+
+
+      visible = "[GetScriptedGui('agot_mw_gui_join_selected_leader').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('selected_leader', WarOverviewWindow.GetRightSideLeaderItem.GetCharacter.MakeScope).End)]"
+      #enabled = "[GetScriptedGui('agot_mw_gui_join_selected_leader').IsValid( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('selected_leader', WarOverviewWindow.GetRightSideLeaderItem.GetCharacter.MakeScope).End)]"
+
+      onclick = "[GetScriptedGui('agot_mw_gui_join_selected_leader').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('selected_leader', WarOverviewWindow.GetRightSideLeaderItem.GetCharacter.MakeScope).End)]"
+
+      #tooltip = MEGA_WARS_GUI_JOIN_LOYALISTS
+      tooltip = "[GetScriptedGui('agot_mw_gui_join_selected_leader').BuildTooltip( GuiScope.SetRoot( GetPlayer.MakeScope ).End ) ]"
+    }
+  }
+}
+
+template agot_show_selected_cb {
+	visible = "[And(DeclareWarInteractionWindow.CanShowWarGoalSubview, And(Not(EqualTo_string(Localize('RESCUE_WAR_NAME'),CasusBelliItem.GetLabel)),Not(EqualTo_string(Localize('REVENGE_WAR_NAME'),CasusBelliItem.GetLabel))))]"
+}
+
+
+template agot_war_datacontexts {
+  datacontext = "[DeclareWarInteractionWindow.GetDefenderCharacter]"
+	datacontext = "[CharacterItem.GetCharacter]"
+}

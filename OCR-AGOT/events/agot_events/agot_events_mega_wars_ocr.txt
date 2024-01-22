@@ -1,0 +1,238 @@
+﻿namespace = agot_mega_wars_ocr
+
+agot_mega_wars_ocr.0600 = {
+	type = character_event
+	title = agot_mega_wars.0600.t
+	desc = agot_mega_wars.0600.desc
+
+	theme = war
+	left_portrait = {
+		character = root
+		#animation =
+	}
+	right_portrait = {
+		character = scope:war_loser
+		#animation =
+	}
+
+	immediate = {
+	}
+
+	option = { #
+		name = agot_mega_wars.0600.a
+
+		if = { # Give AI punishers event to PUNISH!!!!
+			limit = { is_ai = no }
+
+			trigger_event = agot_mega_wars_ocr.0601
+		}
+		else = {
+			trigger_event = agot_mega_wars.0605
+		}
+	}
+}
+
+# Punishment court event
+agot_mega_wars_ocr.0601 = {
+	type = character_event
+	title = agot_mega_wars.0601.t
+	desc = agot_mega_wars.0601.desc
+
+	theme = war
+
+	widget = {
+		is_shown = {
+			always = yes
+		}
+		gui = "event_window_mw_punishment_summary"
+		container = "custom_widgets_container"
+	}
+
+	trigger = {
+		any_in_list = {
+			variable = mw_traitors_list
+			is_alive = yes
+		}
+	}
+
+	immediate = {
+		#set_variable = { name = crown_target value = root } # AGOT TODO; I think this one serves no purpose here
+		remove_variable = selected_traitor
+		if = {
+			limit = { NOT = { has_variable = selected_traitor } }
+			agot_mw_fetch_traitor_variable = yes
+		}
+		if = {
+			limit = { exists = var:selected_traitor }
+
+			var:selected_traitor = { save_scope_as = selected_traitor }
+			agot_mw_traitor_gui_generate_traitor_data_lists_effect = { CROWN_TARGET = root TRAITOR_TARGET = scope:selected_traitor }
+		}
+		agot_mw_traitor_gui_update_indicator_and_flags_effect = yes
+	}
+
+	option = { # Let LP deal with this traitor
+		name = agot_mega_wars.0601.a
+
+		trigger = {
+			highest_held_title_tier = tier_empire
+			NOT = { scope:selected_traitor.liege = root }
+			exists = scope:selected_traitor.liege
+		}
+
+		scope:selected_traitor = {
+			random_liege_or_above = {
+				limit = { highest_held_title_tier = tier_kingdom }
+
+				add_to_variable_list = {
+					name = mw_traitors_list
+					target = scope:selected_traitor
+				}
+				if = {
+					limit = { is_ai = yes }
+					trigger_event = agot_mega_wars.0605
+				}
+			}
+		}
+		agot_mw_gui_next_traitor_effect = yes
+	}
+
+	option = { # Let LP deal with all his vassal traitor
+		name = agot_mega_wars.0601.b
+
+		trigger = {
+			highest_held_title_tier = tier_empire
+			NOT = { scope:selected_traitor.liege = root }
+			any_in_list = {
+				variable = mw_traitors_list
+
+				count > 1
+
+				any_liege_or_above = {
+					highest_held_title_tier = tier_kingdom
+					scope:selected_traitor = {
+						any_liege_or_above = {
+							highest_held_title_tier = tier_kingdom
+							save_temporary_scope_as = temp_lieges_scope
+						}
+					}
+					this = scope:temp_lieges_scope
+				}
+			}
+		}
+
+		# Move all vassals from mw_selected_traitor's liege to liege's traitor list
+		every_in_list = {
+			variable = mw_traitors_list
+
+			limit = {
+				any_liege_or_above = {
+					highest_held_title_tier = tier_kingdom
+					save_temporary_scope_as = temp_liege_scope
+					scope:selected_traitor = {
+						any_liege_or_above = {
+							highest_held_title_tier = tier_kingdom
+							this = scope:temp_liege_scope
+						}
+					}
+				}
+			}
+
+			random_liege_or_above = {
+				limit = {
+					highest_held_title_tier = tier_kingdom
+					save_temporary_scope_as = temp_liege_scope
+					scope:selected_traitor = {
+						any_liege_or_above = {
+							highest_held_title_tier = tier_kingdom
+							this = scope:temp_liege_scope
+						}
+					}
+				}
+
+				add_to_variable_list = {
+					name = mw_traitors_list
+					target = prev
+				}
+			}
+
+			save_temporary_scope_as = temp_traitors_scope
+
+			custom_tooltip = agot_mega_wars.0601.b.tt
+			root = { remove_list_variable = { name = mw_traitors_list target = prev } }
+		}
+
+		scope:selected_traitor = {
+			random_liege_or_above = {
+				limit = { highest_held_title_tier = tier_kingdom }
+
+				add_to_variable_list = {
+					name = mw_traitors_list
+					target = scope:selected_traitor
+				}
+				if = {
+					limit = { is_ai = yes }
+					trigger_event = agot_mega_wars.0605
+				}
+			}
+		}
+		agot_mw_gui_next_traitor_effect = yes
+	}
+
+	option = { # Keep in dungeons for now --> remove from list
+		name = agot_mega_wars.0601.c
+
+		agot_mw_gui_next_traitor_effect = yes
+	}
+
+	option = { # Pass your sentence (Punishment)
+		name = agot_mega_wars.0601.d
+
+		agot_mw_gui_transfer_punishment_vars_to_traitor = yes
+
+		agot_mw_apply_opinion_modifiers = { CROWN_TARGET = root TRAITOR_TARGET = scope:selected_traitor }
+
+		if = {
+			limit = { exists = scope:selected_traitor }
+			show_as_tooltip = { agot_mw_gui_punish_traitor_effect = { CROWN_TARGET = root TRAITOR_TARGET = scope:selected_traitor } }
+		}
+		scope:selected_traitor = {
+			set_variable = { name = crown_target value = root }
+			trigger_event = { id = agot_mega_wars.0603 }
+		}
+		agot_mw_gui_next_traitor_effect = yes
+	}
+
+	option = { # DEBUG; This just skips everything
+		name = agot_mega_wars.0601.e
+
+		trigger = { has_game_rule = agot_debug_on }
+
+		clear_variable_list = mw_traitors_list
+	}
+
+	#option = { # Select a traitor | currently unused cause too clunky in event chain
+	#	name = agot_mega_wars.0601.c
+	#}
+
+	after = {
+		if = { # if there are still traitors on the list, repeat event
+			limit = { has_variable_list = mw_traitors_list }
+
+			trigger_event = agot_mega_wars_ocr.0601
+		}
+		else = { # else resolve punishment
+			every_vassal_or_below = { # Let LPs punish
+				limit = { has_variable_list = mw_traitors_list }
+
+				trigger_event = agot_mega_wars.0600
+			}
+			trigger_event = agot_mega_wars.0604 # Check for post war rebels
+			agot_mw_clear_traitor_setup_data_effect = yes
+			remove_variable = mw_punishment_window
+		}
+		#else = { # AGOT TODO
+		#	trigger_event = agot_mega_wars.0602
+		#}
+	}
+}

@@ -1,0 +1,216 @@
+types AGOT_OCR_Types {
+	type character_name_text = container {
+		ignoreinvisible = yes
+
+		text_single = {
+			visible = "[Or(GetScriptedGui('agot_ser_knight').IsShown(GuiScope.SetRoot(Character.MakeScope).End), GetScriptedGui('agot_ser_knight_bastard').IsShown(GuiScope.SetRoot(Character.MakeScope).End))]"
+			raw_text = "Ser"
+		}
+
+		text_single = {
+			visible = "[GetScriptedGui('agot_maester').IsShown(GuiScope.SetRoot(Character.MakeScope).End)]"
+			raw_text = "Maester"
+		}
+
+		text_single = {
+			visible = "[GetScriptedGui('agot_silent_sister').IsShown(GuiScope.SetRoot(Character.MakeScope).End)]"
+			raw_text = "Silent sister"
+		}
+
+		text_single = {
+			visible = "[Not(GetScriptedGui('agot_high_septon').IsShown(GuiScope.SetRoot(Character.MakeScope).End))]"
+			raw_text = "[Character.GetTitledFirstNameNicknamedNoTooltipRegnal],"
+			max_width = 350
+			fontsize_min = 14
+		}
+
+		text_single = {
+			visible = "[GetScriptedGui('agot_high_septon').IsShown(GuiScope.SetRoot(Character.MakeScope).End)]"
+			raw_text = "[Character.GetNickname],"
+		}
+	}
+
+	type vbox_agot_paramour = vbox_character_row_item_ocr {
+		layoutpolicy_horizontal = expanding
+		name = "Paramour"
+		visible = "[GetScriptedGui('agot_can_have_paramour').IsShown(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).End)]"
+		layoutpolicy_vertical = expanding
+
+		blockoverride "portrait_datamodel" {
+			datamodel = "[CharacterWindow.GetRelationsOfType( GetRelation( 'paramour' ) )]"
+		}
+
+		blockoverride "header_text"
+		{
+			raw_text = "[Localize('PARAMOUR_LABEL')]s, [GetDataModelSize(CharacterWindow.GetRelationsOfType( GetRelation( 'paramour' ) ))]."
+		}
+	}
+
+	type vbox_agot_squires = vbox {
+		layoutpolicy_horizontal = expanding
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			###AGOT ADDED - SQUIRES
+			vbox_character_row_item_ocr = {
+				name = "squires"
+				visible = "[GetScriptedGui('agot_can_have_squire').IsShown(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).End)]"
+				layoutpolicy_vertical = expanding
+				layoutpolicy_horizontal = expanding
+
+				blockoverride "portrait_datamodel" {
+					datamodel = "[CharacterWindow.GetRelationsOfType( GetRelation( 'agot_squire' ) )]"
+				}
+
+				blockoverride "header_text"
+				{
+					raw_text = "[Localize('SQUIRES_LABEL')]s, [GetDataModelSize(CharacterWindow.GetRelationsOfType( GetRelation( 'agot_squire' ) ))]."
+				}
+
+
+				blockoverride "find_partner"
+				{
+					margin_left = 5
+
+					### FIND SQUIRE FOR ME
+					fixedgridbox = {
+						layoutpolicy_horizontal = expanding
+						name = "educate_squire"
+						datamodel = "[GetNullCharacterDataModel( CharacterWindow.CalcUnusedRelationSlots( GetRelation( 'agot_squire' ), '(int32)2' ) )]"
+						visible = "[Character.IsPlayerInteractionShown('agot_offer_squirehood_interaction')]"
+
+						flipdirection = yes
+						addcolumn = 600
+						addrow = 23
+						maxverticalslots = 1
+						maxhorizontalslots = 1
+
+						item = {
+							button_text = {
+								onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction( 'agot_offer_squirehood_interaction' )]"
+								blockoverride "text" {
+									raw_text = "agot_offer_squirehood_interaction"
+								}
+							}
+						}
+					}
+
+					### FIND SQUIRE FOR COURTIER
+					fixedgridbox = {
+						layoutpolicy_horizontal = expanding
+						name = "find_squire"
+						datamodel = "[GetNullCharacterDataModel( CharacterWindow.CalcUnusedRelationSlots( GetRelation( 'agot_squire' ), '(int32)2' ) )]"
+						visible = "[Character.IsPlayerInteractionShown('offer_ward_interaction')]"
+
+						flipdirection = yes
+						addcolumn = 600
+						addrow = 23
+						maxverticalslots = 1
+						maxhorizontalslots = 1
+
+						item = {
+							button_text = {
+								onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction( 'agot_offer_squire_interaction' )]"
+								blockoverride "disabled" {
+									visible = "[Not(CharacterWindow.GetCharacter.IsPlayerInteractionValid( 'agot_offer_squire_interaction' ))]"
+								}
+								blockoverride "text" {
+									raw_text = "agot_offer_squire_interaction"
+								}
+								enabled = "[CharacterWindow.GetCharacter.IsPlayerInteractionValid( 'agot_offer_squire_interaction' )]"
+							}
+						}
+					}
+				}
+			}
+			###AGOT ADDED - KNIGHTS
+			vbox_character_row_relationship_item = {
+				name = "knights"
+				visible = "[GetScriptedGui('agot_can_have_knight').IsShown(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).End)]"
+				layoutpolicy_vertical = expanding
+				layoutpolicy_horizontal = expanding
+
+				blockoverride "portrait_datamodel" {
+					datamodel = "[CharacterWindow.GetRelationsOfType( GetRelation( 'agot_knight' ) )]"
+				}
+
+				blockoverride "header_text"
+				{
+					text = "KNIGHT_LABEL"
+				}
+			}
+		}
+	}
+
+	type agot_ruin_character = vbox {
+		name = "main_content_ruins"
+		layoutpolicy_vertical = expanding
+		layoutpolicy_horizontal = expanding
+		using = Window_Margins_Sidebar
+		using = agot_character_is_ruin
+		margin_left = 10
+
+		error_button = {
+			layoutpolicy_horizontal = expanding
+		}
+
+		button = {
+			shortcut = close_window
+			onclick = "[CharacterWindow.Close]"
+		}
+
+		# text_single = {
+		# 	raw_text = "[Character.GetUINameNotMeNoTooltip]."
+		# 	max_width = 700
+		# 	layoutpolicy_horizontal = expanding
+		# }
+
+		# button_text = {
+		# 	layoutpolicy_horizontal = expanding
+		# 	blockoverride "text" {
+		# 		text = "agot_ruin_begin_reconstruction"
+		# 	}
+		# 	blockoverride "disabled" {
+		# 		visible = "[Not(GetScriptedGui('can_reconstruct_ruin').IsValid(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).AddScope('actor', GetPlayer.MakeScope).End))]"
+		# 	}
+		#
+		# 	enabled = "[GetScriptedGui('can_reconstruct_ruin').IsValid(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).AddScope('actor', GetPlayer.MakeScope).End)]"
+		# 	onclick = "[CharacterWindow.Close]"
+		# 	onclick = "[GetScriptedGui('reconstruct_ruin').Execute(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).AddScope('actor', GetPlayer.MakeScope).End)]"
+		# 	tooltip = "[CharacterWindow.GetCharacter.Custom('RuinsReconstructTooltip')]"
+		# }
+
+		# text_multi = {
+		# 	layoutpolicy_horizontal = expanding
+		# 	autoresize = yes
+		# 	max_width = 700
+		# 	raw_text = "[CharacterWindow.GetCharacter.Custom('RuinsReconstructTooltip')]"
+		# }
+		#
+		# vbox = {
+		# 	name = "confirmation"
+		# 	layoutpolicy_horizontal = expanding
+		# 	visible = "[GetScriptedGui('can_reconstruct_ruin').IsValid(GuiScope.SetRoot(CharacterWindow.GetCharacter.MakeScope).AddScope('actor', GetPlayer.MakeScope).End)]"
+		#
+		# 	text_multi = {
+		# 		autoresize = yes
+		# 		max_width = 700
+		# 		text = "[CharacterWindow.GetCharacter.Custom('RuinsReconstructDesc')]"
+		# 	}
+		# }
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+
+			text_multi_wide = {
+				# text = "[CharacterWindow.GetCharacter.Custom('RuinsHistory')]"
+				text = "ruin_history_generic"
+			}
+		
+			expand = {}
+		}
+
+
+		expand = { }
+	}
+}

@@ -1,0 +1,33 @@
+template phase_effect {
+	vbox = {
+		layoutpolicy_horizontal = expanding
+		spacing = 12
+		margin_bottom = 15
+
+		background = {
+			using = Background_Area_With_Header
+			margin_left = 16
+			margin_right = 16
+		}
+
+		text_single = {
+			max_width = 400
+			margin = { 0 5 }
+			text = "STRUGGLE_TOOLTIP_EFFECTS_HEADER"
+		}
+
+		vbox = {
+			name = "phase_effects"
+			layoutpolicy_horizontal = expanding
+
+			StrugglePhaseEffectWar = { }
+
+			StrugglePhaseEffectCulture = { }
+
+			# agot
+			# StrugglePhaseEffectFaith = { }
+
+			StrugglePhaseEffectOther = { }
+		}
+	}
+}

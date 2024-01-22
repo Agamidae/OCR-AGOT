@@ -1,0 +1,12 @@
+﻿l_korean:
+
+ #Castellan Tasks
+ task_castellan_default_1:0 "Martial advice" #martial
+
+ task_castellan_default_2:0 "Learning advice" #learning
+
+ task_castellan_default_3:0 "Intrigue advice" #intrigue
+
+ task_castellan_default_4:0 "Stewardship advice" #stewardship
+
+ task_castellan_default_5:0 "Diplomacy Advice" #diplomacy

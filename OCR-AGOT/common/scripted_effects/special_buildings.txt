@@ -1,0 +1,551 @@
+﻿
+
+
+special_buildings_switch = {
+	if = {
+		limit = {
+			NOT = { has_variable = special_building }
+		}
+		switch = {
+			trigger = has_building
+
+			# there is a saved regex in regex.txt
+
+			### special westeros
+			agot_tower_of_joy_01 = {
+				set_variable = { name = special_building value = flag:agot_tower_of_joy_01 }
+				if = { limit = { var:special_building = flag:agot_tower_of_joy_01 } }
+				# these ifs are for error suppression
+			}
+			agot_the_water_gardens_01 = {
+				set_variable = { name = special_building value = flag:agot_the_water_gardens_01 }
+				if = { limit = { var:special_building = flag:agot_the_water_gardens_01 } }
+			}
+			agot_ghaston_grey_01 = {
+				set_variable = { name = special_building value = flag:agot_ghaston_grey_01 }
+				if = { limit = { var:special_building = flag:agot_ghaston_grey_01 } }
+			}
+			agot_the_shadow_city_01 = {
+				set_variable = { name = special_building value = flag:agot_the_shadow_city_01 }
+				if = { limit = { var:special_building = flag:agot_the_shadow_city_01 } }
+			}
+			agot_starfall_01 = {
+				set_variable = { name = special_building value = flag:agot_starfall_01 }
+				if = { limit = { var:special_building = flag:agot_starfall_01 } }
+			}
+			agot_vultures_roost_01 = {
+				set_variable = { name = special_building value = flag:agot_vultures_roost_01 }
+				if = { limit = { var:special_building = flag:agot_vultures_roost_01 } }
+			}
+			agot_skyreach_01 = {
+				set_variable = { name = special_building value = flag:agot_skyreach_01 }
+				if = { limit = { var:special_building = flag:agot_skyreach_01 } }
+			}
+			agot_raventree_hall_01 = {
+				set_variable = { name = special_building value = flag:agot_raventree_hall_01 }
+				if = { limit = { var:special_building = flag:agot_raventree_hall_01 } }
+			}
+			agot_inn_at_the_crossroads_01 = {
+				set_variable = { name = special_building value = flag:agot_inn_at_the_crossroads_01 }
+				if = { limit = { var:special_building = flag:agot_inn_at_the_crossroads_01 } }
+			}
+			agot_high_heart_01 = {
+				set_variable = { name = special_building value = flag:agot_high_heart_01 }
+				if = { limit = { var:special_building = flag:agot_high_heart_01 } }
+			}
+			agot_high_heart_02 = {
+				set_variable = { name = special_building value = flag:agot_high_heart_02 }
+				if = { limit = { var:special_building = flag:agot_high_heart_02 } }
+			}
+			agot_seagard_01 = {
+				set_variable = { name = special_building value = flag:agot_seagard_01 }
+				if = { limit = { var:special_building = flag:agot_seagard_01 } }
+			}
+			agot_maidenpool_01 = {
+				set_variable = { name = special_building value = flag:agot_maidenpool_01 }
+				if = { limit = { var:special_building = flag:agot_maidenpool_01 } }
+			}
+			agot_oldstones_01 = {
+				set_variable = { name = special_building value = flag:agot_oldstones_01 }
+				if = { limit = { var:special_building = flag:agot_oldstones_01 } }
+			}
+			agot_oldstones_02 = {
+				set_variable = { name = special_building value = flag:agot_oldstones_02 }
+				if = { limit = { var:special_building = flag:agot_oldstones_02 } }
+			}
+			agot_inn_of_the_kneeling_man_01 = {
+				set_variable = { name = special_building value = flag:agot_inn_of_the_kneeling_man_01 }
+				if = { limit = { var:special_building = flag:agot_inn_of_the_kneeling_man_01 } }
+			}
+			agot_banefort_01 = {
+				set_variable = { name = special_building value = flag:agot_banefort_01 }
+				if = { limit = { var:special_building = flag:agot_banefort_01 } }
+			}
+			agot_castamere_01 = {
+				set_variable = { name = special_building value = flag:agot_castamere_01 }
+				if = { limit = { var:special_building = flag:agot_castamere_01 } }
+			}
+			agot_castamere_02 = {
+				set_variable = { name = special_building value = flag:agot_castamere_02 }
+				if = { limit = { var:special_building = flag:agot_castamere_02 } }
+			}
+			agot_castamere_03 = {
+				set_variable = { name = special_building value = flag:agot_castamere_03 }
+				if = { limit = { var:special_building = flag:agot_castamere_03 } }
+			}
+			agot_griffins_roost_01 = {
+				set_variable = { name = special_building value = flag:agot_griffins_roost_01 }
+				if = { limit = { var:special_building = flag:agot_griffins_roost_01 } }
+			}
+			agot_blackhaven_01 = {
+				set_variable = { name = special_building value = flag:agot_blackhaven_01 }
+				if = { limit = { var:special_building = flag:agot_blackhaven_01 } }
+			}
+			agot_stonehelm_01 = {
+				set_variable = { name = special_building value = flag:agot_stonehelm_01 }
+				if = { limit = { var:special_building = flag:agot_stonehelm_01 } }
+			}
+			agot_nightsong_01 = {
+				set_variable = { name = special_building value = flag:agot_nightsong_01 }
+				if = { limit = { var:special_building = flag:agot_nightsong_01 } }
+			}
+			agot_morne_01 = {
+				set_variable = { name = special_building value = flag:agot_morne_01 }
+				if = { limit = { var:special_building = flag:agot_morne_01 } }
+			}
+			agot_morne_02 = {
+				set_variable = { name = special_building value = flag:agot_morne_02 }
+				if = { limit = { var:special_building = flag:agot_morne_02 } }
+			}
+			agot_morne_03 = {
+				set_variable = { name = special_building value = flag:agot_morne_03 }
+				if = { limit = { var:special_building = flag:agot_morne_03 } }
+			}
+			agot_evenfall_hall_01 = {
+				set_variable = { name = special_building value = flag:agot_evenfall_hall_01 }
+				if = { limit = { var:special_building = flag:agot_evenfall_hall_01 } }
+			}
+			agot_summerhall_01 = {
+				set_variable = { name = special_building value = flag:agot_summerhall_01 }
+				if = { limit = { var:special_building = flag:agot_summerhall_01 } }
+			}
+			agot_summerhall_02 = {
+				set_variable = { name = special_building value = flag:agot_summerhall_02 }
+				if = { limit = { var:special_building = flag:agot_summerhall_02 } }
+			}
+			agot_summerhall_03 = {
+				set_variable = { name = special_building value = flag:agot_summerhall_03 }
+				if = { limit = { var:special_building = flag:agot_summerhall_03 } }
+			}
+			agot_barrow_keep_01 = {
+				set_variable = { name = special_building value = flag:agot_barrow_keep_01 }
+				if = { limit = { var:special_building = flag:agot_barrow_keep_01 } }
+			}
+			agot_white_harbor_01 = {
+				set_variable = { name = special_building value = flag:agot_white_harbor_01 }
+				if = { limit = { var:special_building = flag:agot_white_harbor_01 } }
+			}
+			agot_sept_of_the_snows_01 = {
+				set_variable = { name = special_building value = flag:agot_sept_of_the_snows_01 }
+				if = { limit = { var:special_building = flag:agot_sept_of_the_snows_01 } }
+			}
+			agot_wolfs_den_01 = {
+				set_variable = { name = special_building value = flag:agot_wolfs_den_01 }
+				if = { limit = { var:special_building = flag:agot_wolfs_den_01 } }
+			}
+			agot_wolfs_den_02 = {
+				set_variable = { name = special_building value = flag:agot_wolfs_den_02 }
+				if = { limit = { var:special_building = flag:agot_wolfs_den_02 } }
+			}
+			agot_wolfs_den_03 = {
+				set_variable = { name = special_building value = flag:agot_wolfs_den_03 }
+				if = { limit = { var:special_building = flag:agot_wolfs_den_03 } }
+			}
+			agot_new_castle_01 = {
+				set_variable = { name = special_building value = flag:agot_new_castle_01 }
+				if = { limit = { var:special_building = flag:agot_new_castle_01 } }
+			}
+			agot_dreadfort_01 = {
+				set_variable = { name = special_building value = flag:agot_dreadfort_01 }
+				if = { limit = { var:special_building = flag:agot_dreadfort_01 } }
+			}
+			agot_karhold_01 = {
+				set_variable = { name = special_building value = flag:agot_karhold_01 }
+				if = { limit = { var:special_building = flag:agot_karhold_01 } }
+			}
+			agot_warg_king_01 = {
+				set_variable = { name = special_building value = flag:agot_warg_king_01 }
+				if = { limit = { var:special_building = flag:agot_warg_king_01 } }
+			}
+			agot_warg_king_02 = {
+				set_variable = { name = special_building value = flag:agot_warg_king_02 }
+				if = { limit = { var:special_building = flag:agot_warg_king_02 } }
+			}
+			agot_greywater_watch_01 = {
+				set_variable = { name = special_building value = flag:agot_greywater_watch_01 }
+				if = { limit = { var:special_building = flag:agot_greywater_watch_01 } }
+			}
+			agot_goldengrove_01 = {
+				set_variable = { name = special_building value = flag:agot_goldengrove_01 }
+				if = { limit = { var:special_building = flag:agot_goldengrove_01 } }
+			}
+			agot_bitterbridge_01 = {
+				set_variable = { name = special_building value = flag:agot_bitterbridge_01 }
+				if = { limit = { var:special_building = flag:agot_bitterbridge_01 } }
+			}
+			agot_bitterbridge_02 = {
+				set_variable = { name = special_building value = flag:agot_bitterbridge_02 }
+				if = { limit = { var:special_building = flag:agot_bitterbridge_02 } }
+			}
+			agot_red_lake_01 = {
+				set_variable = { name = special_building value = flag:agot_red_lake_01 }
+				if = { limit = { var:special_building = flag:agot_red_lake_01 } }
+			}
+			agot_tumbleton_01 = {
+				set_variable = { name = special_building value = flag:agot_tumbleton_01 }
+				if = { limit = { var:special_building = flag:agot_tumbleton_01 } }
+			}
+			agot_grafton_keep_01 = {
+				set_variable = { name = special_building value = flag:agot_grafton_keep_01 }
+				if = { limit = { var:special_building = flag:agot_grafton_keep_01 } }
+			}
+			agot_gulltown_01 = {
+				set_variable = { name = special_building value = flag:agot_gulltown_01 }
+				if = { limit = { var:special_building = flag:agot_gulltown_01 } }
+			}
+			agot_runestone_01 = {
+				set_variable = { name = special_building value = flag:agot_runestone_01 }
+				if = { limit = { var:special_building = flag:agot_runestone_01 } }
+			}
+			agot_sisterton_01 = {
+				set_variable = { name = special_building value = flag:agot_sisterton_01 }
+				if = { limit = { var:special_building = flag:agot_sisterton_01 } }
+			}
+			agot_hoare_castle_01 = {
+				set_variable = { name = special_building value = flag:agot_hoare_castle_01 }
+				if = { limit = { var:special_building = flag:agot_hoare_castle_01 } }
+			}
+			agot_spicetown_01 = {
+				set_variable = { name = special_building value = flag:agot_spicetown_01 }
+				if = { limit = { var:special_building = flag:agot_spicetown_01 } }
+			}
+			agot_spicetown_02 = {
+				set_variable = { name = special_building value = flag:agot_spicetown_02 }
+				if = { limit = { var:special_building = flag:agot_spicetown_02 } }
+			}
+			agot_spicetown_03 = {
+				set_variable = { name = special_building value = flag:agot_spicetown_03 }
+				if = { limit = { var:special_building = flag:agot_spicetown_03 } }
+			}
+			agot_hardhome_01 = {
+				set_variable = { name = special_building value = flag:agot_hardhome_01 }
+				if = { limit = { var:special_building = flag:agot_hardhome_01 } }
+			}
+			agot_hardhome_02 = {
+				set_variable = { name = special_building value = flag:agot_hardhome_02 }
+				if = { limit = { var:special_building = flag:agot_hardhome_02 } }
+			}
+			agot_hardhome_03 = {
+				set_variable = { name = special_building value = flag:agot_hardhome_03 }
+				if = { limit = { var:special_building = flag:agot_hardhome_03 } }
+			}
+
+			### special
+
+			the_red_keep_01 = {
+				set_variable = { name = special_building value = flag:the_red_keep_01 }
+				if = { limit = { var:special_building = flag:the_red_keep_01 } }
+			}
+			holy_site_great_sept_01 = {
+				set_variable = { name = special_building value = flag:holy_site_great_sept_01 }
+				if = { limit = { var:special_building = flag:holy_site_great_sept_01 } }
+			}
+			dragonpit_01 = {
+				set_variable = { name = special_building value = flag:dragonpit_01 }
+				if = { limit = { var:special_building = flag:dragonpit_01 } }
+			}
+			winterfell_01 = {
+				set_variable = { name = special_building value = flag:winterfell_01 }
+				if = { limit = { var:special_building = flag:winterfell_01 } }
+			}
+			the_eyrie_01 = {
+				set_variable = { name = special_building value = flag:the_eyrie_01 }
+				if = { limit = { var:special_building = flag:the_eyrie_01 } }
+			}
+			casterly_rock_01 = {
+				set_variable = { name = special_building value = flag:casterly_rock_01 }
+				if = { limit = { var:special_building = flag:casterly_rock_01 } }
+			}
+			highgarden_01 = {
+				set_variable = { name = special_building value = flag:highgarden_01 }
+				if = { limit = { var:special_building = flag:highgarden_01 } }
+			}
+			pyke_01 = {
+				set_variable = { name = special_building value = flag:pyke_01 }
+				if = { limit = { var:special_building = flag:pyke_01 } }
+			}
+			sunspear_01 = {
+				set_variable = { name = special_building value = flag:sunspear_01 }
+				if = { limit = { var:special_building = flag:sunspear_01 } }
+			}
+			storms_end_01 = {
+				set_variable = { name = special_building value = flag:storms_end_01 }
+				if = { limit = { var:special_building = flag:storms_end_01 } }
+			}
+			riverrun_01 = {
+				set_variable = { name = special_building value = flag:riverrun_01 }
+				if = { limit = { var:special_building = flag:riverrun_01 } }
+			}
+			moat_cailin_01 = {
+				set_variable = { name = special_building value = flag:moat_cailin_01 }
+				if = { limit = { var:special_building = flag:moat_cailin_01 } }
+			}
+			moat_cailin_02 = {
+				set_variable = { name = special_building value = flag:moat_cailin_02 }
+				if = { limit = { var:special_building = flag:moat_cailin_02 } }
+			}
+			the_bloody_gate_01 = {
+				set_variable = { name = special_building value = flag:the_bloody_gate_01 }
+				if = { limit = { var:special_building = flag:the_bloody_gate_01 } }
+			}
+			dragonstone_01 = {
+				set_variable = { name = special_building value = flag:dragonstone_01 }
+				if = { limit = { var:special_building = flag:dragonstone_01 } }
+			}
+			the_hightower_01 = {
+				set_variable = { name = special_building value = flag:the_hightower_01 }
+				if = { limit = { var:special_building = flag:the_hightower_01 } }
+			}
+			holy_site_starry_sept_01 = {
+				set_variable = { name = special_building value = flag:holy_site_starry_sept_01 }
+				if = { limit = { var:special_building = flag:holy_site_starry_sept_01 } }
+			}
+			the_citadel_01 = {
+				set_variable = { name = special_building value = flag:the_citadel_01 }
+				if = { limit = { var:special_building = flag:the_citadel_01 } }
+			}
+			holy_site_naggas_hill_01 = {
+				set_variable = { name = special_building value = flag:holy_site_naggas_hill_01 }
+				if = { limit = { var:special_building = flag:holy_site_naggas_hill_01 } }
+			}
+			the_twins_01 = {
+				set_variable = { name = special_building value = flag:the_twins_01 }
+				if = { limit = { var:special_building = flag:the_twins_01 } }
+			}
+			harrenhal_01 = {
+				set_variable = { name = special_building value = flag:harrenhal_01 }
+				if = { limit = { var:special_building = flag:harrenhal_01 } }
+			}
+			harrenhal_02 = {
+				set_variable = { name = special_building value = flag:harrenhal_02 }
+				if = { limit = { var:special_building = flag:harrenhal_02 } }
+			}
+			harrenhal_03 = {
+				set_variable = { name = special_building value = flag:harrenhal_03 }
+				if = { limit = { var:special_building = flag:harrenhal_03 } }
+			}
+			harrenhal_04 = {
+				set_variable = { name = special_building value = flag:harrenhal_04 }
+				if = { limit = { var:special_building = flag:harrenhal_04 } }
+			}
+			harrenhal_05 = {
+				set_variable = { name = special_building value = flag:harrenhal_05 }
+				if = { limit = { var:special_building = flag:harrenhal_05 } }
+			}
+			harrenhal_06 = {
+				set_variable = { name = special_building value = flag:harrenhal_06 }
+				if = { limit = { var:special_building = flag:harrenhal_06 } }
+			}
+			harrenhal_07 = {
+				set_variable = { name = special_building value = flag:harrenhal_07 }
+				if = { limit = { var:special_building = flag:harrenhal_07 } }
+			}
+			ironwood_01 = {
+				set_variable = { name = special_building value = flag:ironwood_01 }
+				if = { limit = { var:special_building = flag:ironwood_01 } }
+			}
+			depleted_ironwood_01 = {
+				set_variable = { name = special_building value = flag:depleted_ironwood_01 }
+				if = { limit = { var:special_building = flag:depleted_ironwood_01 } }
+			}
+			mines_of_the_tooth_01 = {
+				set_variable = { name = special_building value = flag:mines_of_the_tooth_01 }
+				if = { limit = { var:special_building = flag:mines_of_the_tooth_01 } }
+			}
+			mines_of_the_tooth_02 = {
+				set_variable = { name = special_building value = flag:mines_of_the_tooth_02 }
+				if = { limit = { var:special_building = flag:mines_of_the_tooth_02 } }
+			}
+			mines_of_the_tooth_03 = {
+				set_variable = { name = special_building value = flag:mines_of_the_tooth_03 }
+				if = { limit = { var:special_building = flag:mines_of_the_tooth_03 } }
+			}
+			mines_of_the_tooth_04 = {
+				set_variable = { name = special_building value = flag:mines_of_the_tooth_04 }
+				if = { limit = { var:special_building = flag:mines_of_the_tooth_04 } }
+			}
+			pendric_hills_mines_01 = {
+				set_variable = { name = special_building value = flag:pendric_hills_mines_01 }
+				if = { limit = { var:special_building = flag:pendric_hills_mines_01 } }
+			}
+			pendric_hills_mines_02 = {
+				set_variable = { name = special_building value = flag:pendric_hills_mines_02 }
+				if = { limit = { var:special_building = flag:pendric_hills_mines_02 } }
+			}
+			pendric_hills_mines_03 = {
+				set_variable = { name = special_building value = flag:pendric_hills_mines_03 }
+				if = { limit = { var:special_building = flag:pendric_hills_mines_03 } }
+			}
+			pendric_hills_mines_04 = {
+				set_variable = { name = special_building value = flag:pendric_hills_mines_04 }
+				if = { limit = { var:special_building = flag:pendric_hills_mines_04 } }
+			}
+			nunns_deep_mines_01 = {
+				set_variable = { name = special_building value = flag:nunns_deep_mines_01 }
+				if = { limit = { var:special_building = flag:nunns_deep_mines_01 } }
+			}
+			nunns_deep_mines_02 = {
+				set_variable = { name = special_building value = flag:nunns_deep_mines_02 }
+				if = { limit = { var:special_building = flag:nunns_deep_mines_02 } }
+			}
+			nunns_deep_mines_03 = {
+				set_variable = { name = special_building value = flag:nunns_deep_mines_03 }
+				if = { limit = { var:special_building = flag:nunns_deep_mines_03 } }
+			}
+			nunns_deep_mines_04 = {
+				set_variable = { name = special_building value = flag:nunns_deep_mines_04 }
+				if = { limit = { var:special_building = flag:nunns_deep_mines_04 } }
+			}
+			silverhill_mines_01 = {
+				set_variable = { name = special_building value = flag:silverhill_mines_01 }
+				if = { limit = { var:special_building = flag:silverhill_mines_01 } }
+			}
+			silverhill_mines_02 = {
+				set_variable = { name = special_building value = flag:silverhill_mines_02 }
+				if = { limit = { var:special_building = flag:silverhill_mines_02 } }
+			}
+			silverhill_mines_03 = {
+				set_variable = { name = special_building value = flag:silverhill_mines_03 }
+				if = { limit = { var:special_building = flag:silverhill_mines_03 } }
+			}
+			silverhill_mines_04 = {
+				set_variable = { name = special_building value = flag:silverhill_mines_04 }
+				if = { limit = { var:special_building = flag:silverhill_mines_04 } }
+			}
+			yronwood_mines_01 = {
+				set_variable = { name = special_building value = flag:yronwood_mines_01 }
+				if = { limit = { var:special_building = flag:yronwood_mines_01 } }
+			}
+			yronwood_mines_02 = {
+				set_variable = { name = special_building value = flag:yronwood_mines_02 }
+				if = { limit = { var:special_building = flag:yronwood_mines_02 } }
+			}
+			yronwood_mines_03 = {
+				set_variable = { name = special_building value = flag:yronwood_mines_03 }
+				if = { limit = { var:special_building = flag:yronwood_mines_03 } }
+			}
+			yronwood_mines_04 = {
+				set_variable = { name = special_building value = flag:yronwood_mines_04 }
+				if = { limit = { var:special_building = flag:yronwood_mines_04 } }
+			}
+			harlaw_mines_01 = {
+				set_variable = { name = special_building value = flag:harlaw_mines_01 }
+				if = { limit = { var:special_building = flag:harlaw_mines_01 } }
+			}
+			harlaw_mines_02 = {
+				set_variable = { name = special_building value = flag:harlaw_mines_02 }
+				if = { limit = { var:special_building = flag:harlaw_mines_02 } }
+			}
+			harlaw_mines_03 = {
+				set_variable = { name = special_building value = flag:harlaw_mines_03 }
+				if = { limit = { var:special_building = flag:harlaw_mines_03 } }
+			}
+			harlaw_mines_04 = {
+				set_variable = { name = special_building value = flag:harlaw_mines_04 }
+				if = { limit = { var:special_building = flag:harlaw_mines_04 } }
+			}
+			orkmont_mines_01 = {
+				set_variable = { name = special_building value = flag:orkmont_mines_01 }
+				if = { limit = { var:special_building = flag:orkmont_mines_01 } }
+			}
+			orkmont_mines_02 = {
+				set_variable = { name = special_building value = flag:orkmont_mines_02 }
+				if = { limit = { var:special_building = flag:orkmont_mines_02 } }
+			}
+			orkmont_mines_03 = {
+				set_variable = { name = special_building value = flag:orkmont_mines_03 }
+				if = { limit = { var:special_building = flag:orkmont_mines_03 } }
+			}
+			orkmont_mines_04 = {
+				set_variable = { name = special_building value = flag:orkmont_mines_04 }
+				if = { limit = { var:special_building = flag:orkmont_mines_04 } }
+			}
+			hardstone_hills_mines_01 = {
+				set_variable = { name = special_building value = flag:hardstone_hills_mines_01 }
+				if = { limit = { var:special_building = flag:hardstone_hills_mines_01 } }
+			}
+			hardstone_hills_mines_02 = {
+				set_variable = { name = special_building value = flag:hardstone_hills_mines_02 }
+				if = { limit = { var:special_building = flag:hardstone_hills_mines_02 } }
+			}
+			hardstone_hills_mines_03 = {
+				set_variable = { name = special_building value = flag:hardstone_hills_mines_03 }
+				if = { limit = { var:special_building = flag:hardstone_hills_mines_03 } }
+			}
+			hardstone_hills_mines_04 = {
+				set_variable = { name = special_building value = flag:hardstone_hills_mines_04 }
+				if = { limit = { var:special_building = flag:hardstone_hills_mines_04 } }
+			}
+			special_moat_1_walls_1 = {
+				set_variable = { name = special_building value = flag:special_moat_1_walls_1 }
+				if = { limit = { var:special_building = flag:special_moat_1_walls_1 } }
+			}
+			special_moat_1_walls_2 = {
+				set_variable = { name = special_building value = flag:special_moat_1_walls_2 }
+				if = { limit = { var:special_building = flag:special_moat_1_walls_2 } }
+			}
+			special_moat_1_walls_3 = {
+				set_variable = { name = special_building value = flag:special_moat_1_walls_3 }
+				if = { limit = { var:special_building = flag:special_moat_1_walls_3 } }
+			}
+			special_moat_1_walls_4 = {
+				set_variable = { name = special_building value = flag:special_moat_1_walls_4 }
+				if = { limit = { var:special_building = flag:special_moat_1_walls_4 } }
+			}
+			special_moat_2_walls_1 = {
+				set_variable = { name = special_building value = flag:special_moat_2_walls_1 }
+				if = { limit = { var:special_building = flag:special_moat_2_walls_1 } }
+			}
+			special_moat_2_walls_2 = {
+				set_variable = { name = special_building value = flag:special_moat_2_walls_2 }
+				if = { limit = { var:special_building = flag:special_moat_2_walls_2 } }
+			}
+			special_moat_2_walls_3 = {
+				set_variable = { name = special_building value = flag:special_moat_2_walls_3 }
+				if = { limit = { var:special_building = flag:special_moat_2_walls_3 } }
+			}
+			special_moat_2_walls_4 = {
+				set_variable = { name = special_building value = flag:special_moat_2_walls_4 }
+				if = { limit = { var:special_building = flag:special_moat_2_walls_4 } }
+			}
+		}
+	}
+	if = {
+		limit = { NOT = { has_variable = duchy_building_ledger } }
+		if = {
+			limit = { has_building = agot_oldtown_walls_01 }
+			set_variable = { name = duchy_building_ledger	value = flag:agot_oldtown_walls_01 }
+			if = { limit = { var:duchy_building_ledger = flag:agot_oldtown_walls_01 } }
+		}
+		if = {
+			limit = { has_building = agot_dragonmont_01 }
+			set_variable = { name = duchy_building_ledger	value = flag:agot_dragonmont_01 }
+			if = { limit = { var:duchy_building_ledger = flag:agot_dragonmont_01 } }
+		}
+		if = {
+			limit = { has_building = seven_gates_01 }
+			set_variable = { name = duchy_building_ledger	value = flag:seven_gates_01 }
+			if = { limit = { var:duchy_building_ledger = flag:seven_gates_01 } }
+		}
+	}
+}

@@ -1,0 +1,49 @@
+template agot_hide {
+  visible = no
+}
+
+types AGOT_OCR_types {
+  # type button_agot_fake_exit = vbox {
+  #   button_text = {
+  #     blockoverride "text" {
+  #       text = "RESIGN"
+  #       align = left
+  #     }
+  #     blockoverride "extra" {
+  #       text_single = {
+  #         raw_text = ", hotkey Tab."
+  #       }
+  #     }
+  #     shortcut = action_list
+  #     visible = "[Not(GetVariableSystem.Exists('AGOT_must_show_fake_button'))]"
+  #     onclick = "[GetScriptedGui('agot_end_wildfire').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  #     clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_quit_game"
+  #     onclick = "[GetVariableSystem.Set('AGOT_must_show_fake_button', 'true')]"
+  #   }
+  #
+  #   # NOTE: Fake button.
+  #   button_edit_text = {
+  #     visible = "[GetVariableSystem.Exists('AGOT_must_show_fake_button')]"
+  #
+  #     state = {
+  #       name = _show
+  #       duration = 0.1
+  #
+  #
+  #       # NOTE: The actual call to OpenTitleRenamePopup happens here,
+  #       #       0.1 seconds after the real button was clicked
+  #       #       (and the fake one was shown).
+  #       block "exit" {
+  #         on_finish = "[ResignConfirmationWindow.OnMenu]"
+  #       }
+  #       # NOTE: Then the fake button is immediately hidden
+  #       #       and the real one re-displayed.
+  #       on_finish = "[GetVariableSystem.Clear('AGOT_must_show_fake_button')]"
+  #     }
+  #   }
+  # }
+}
+
+template zoom_out_title {
+  datacontext = "[GetTitleByKey('e_the_iron_throne')]"
+}

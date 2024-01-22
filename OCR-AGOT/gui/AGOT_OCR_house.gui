@@ -1,0 +1,19 @@
+template agot_show_cadet_house {
+  visible = "[And(Not(DynastyHouse.IsFoundingHouse), Not(Or(DynastyHouse.GetFounder.HasTrait(GetTrait('bastard')), DynastyHouse.GetFounder.HasTrait(GetTrait('bastard_founder')))))]"
+}
+
+types OCR {
+  #AGOT Added, Bastard Cadets
+  type text_agot_bastard_cadet = text_single {
+    visible = "[And(Not(DynastyHouse.IsFoundingHouse), Or(DynastyHouse.GetFounder.HasTrait(GetTrait('bastard')), DynastyHouse.GetFounder.HasTrait(GetTrait('bastard_founder'))))]"
+    text = "HOUSE_LIST_BASTARD"
+  }
+}
+
+# probably don't need them
+template agot_click_coa_finish {
+  onclick = "[GetScriptedGui('agot_gui_update_coa_house').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('edit_scope', HouseCustomizationWindow.GetHouse.MakeScope).End ) ]"
+}
+template agot_coa_finish {
+  onreturnpressed = "[GetScriptedGui('agot_gui_update_coa_house').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('edit_scope', HouseCustomizationWindow.GetHouse.MakeScope).End ) ]"
+}

@@ -1,0 +1,3 @@
+template agot_show_other_contract {
+  visible = "[And(Not(Or(Character.GetGovernment.IsType('lp_feudal_government'), Character.GetGovernment.IsType('feudal_government'))), Not(Character.GetGovernment.IsType('nights_watch_government')))]"
+}

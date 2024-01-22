@@ -1,0 +1,102 @@
+types AGOT_OCR_Types {
+  type button_agot_abandon_ruin = button_text {
+    layoutpolicy_horizontal = expanding
+    blockoverride "text" {
+      raw_text = "[Localize('ABANDON_RUIN_BUTTON')]."
+    }
+    visible = "[GetScriptedGui('agot_is_reclaimed_ruin').IsShown(GuiScope.SetRoot(HoldingView.GetProvince.MakeScope).End)]"
+    onclick = "[GetScriptedGui('abandon_ruin').Execute(GuiScope.SetRoot(HoldingView.GetProvince.GetTitle.MakeScope).End)]"
+    tooltip = "ABANDON_RUINS_TOOLTIP"
+  }
+
+  type button_agot_restore_ruins = button_primary_text {
+    name = "restore_ruins"
+    datacontext = "[HoldingView.GetTitle]"
+    visible = "[GetScriptedGui('agot_is_ruin').IsShown( GuiScope.SetRoot( HoldingView.GetProvince.MakeScope ).End)]"
+    blockoverride "text" {
+      text = "agot_ruin_begin_reconstruction"
+    }
+    blockoverride "disabled" {
+      visible = "[Not(GetScriptedGui('can_reconstruct_ruin').IsValid(GuiScope.SetRoot(HoldingView.GetProvince.MakeScope).AddScope('actor', GetPlayer.MakeScope ).End))]"
+    }
+    tooltip = "[HoldingView.GetProvince.Custom('RuinsReconstructTooltip')]"
+    enabled = "[GetScriptedGui('can_reconstruct_ruin').IsValid(GuiScope.SetRoot(HoldingView.GetProvince.MakeScope).AddScope('actor', GetPlayer.MakeScope ).End)]" #
+    onclick = "[GetVariableSystem.Toggle('window_ruins_confirm')]"
+  }
+
+  #AGOT Added
+  type window_ruins_blocker = window {
+
+    parentanchor = center
+    size = { 4000 4000 }
+    filter_mouse = all
+    movable = no
+    alwaystransparent = no
+    using = Window_Background
+    visible = "[GetVariableSystem.Exists('window_ruins_confirm')]"
+    button_primary_big = {
+      size = { 100% 100% }
+      onclick = "[GetVariableSystem.Toggle('window_ruins_confirm')]"
+    }
+  }
+
+  #AGOT Added
+  type window_ruins_confirm = window {
+    allow_outside = yes
+    movable = no
+    visible = "[GetVariableSystem.Exists('window_ruins_confirm')]"
+    alwaystransparent = no
+    layoutpolicy_vertical = expanding
+    layoutpolicy_horizontal = expanding
+
+    vbox = {
+      set_parent_size_to_minimum = yes
+      margin = { 40 20 }
+      spacing = 3
+
+
+      hbox = {
+        margin_bottom = -10
+        layoutpolicy_horizontal = expanding
+        parentanchor = top
+
+        header_pattern = {
+          layoutpolicy_horizontal = expanding
+
+          blockoverride "header_text" {
+            text = "reconstruct_ruin_confirm_title"
+          }
+
+          blockoverride "button_close" {
+            visible = no
+          }
+        }
+      }
+
+      button_primary_text = {
+        layoutpolicy_horizontal = expanding
+        blockoverride "text" {
+          text = "reconstruct_ruin_confirm_button"
+        }
+        clicksound = "event:/SFX/UI/Unique/Construction/Holding/sfx_ui_unique_construction_holding_generic"
+        onclick = "[GetScriptedGui('reconstruct_ruin').Execute( GuiScope.SetRoot( HoldingView.GetProvince.MakeScope ).AddScope('actor', GetPlayer.MakeScope ).End)]"
+        onclick = "[GetVariableSystem.Toggle('window_ruins_confirm')]"
+      }
+
+      hbox = {
+        layoutpolicy_horizontal = expanding
+
+        text_multi_wide = {
+          max_width = 500
+          text = "[HoldingView.GetProvince.Custom('RuinsReconstructDesc')]"
+        }
+
+        expand = {}
+      }
+    }
+  }
+}
+
+template county_holding_click {
+  enabled = "[And(HoldingView.GetTitle.HasHolder, Not(HoldingView.GetTitle.GetHolder.HasTrait(GetTrait('ruin').Self)))]" #ruin
+}
