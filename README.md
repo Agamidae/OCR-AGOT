@@ -39,7 +39,7 @@ Consider making a new playset so you can switch to the normal version of the gam
 
 ## Steam
 
-Subscribe to the mod on Steam and add it to the bottom of the playset, after AGOT and OCR Support.
+Subscribe to the mod on Steam and add it to the bottom of the playset, after AGOT and OCR Support. It will update automatically.
 
 ## Manual installation
 
