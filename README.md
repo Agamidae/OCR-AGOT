@@ -1,11 +1,13 @@
 # OCR AGOT
 A compatibility patch for OCR Support and A Game of Thrones mods for Crusader Kings 3.
 
-AGOT mod is still in development and only has Westeros, but in a lot of detail, with more than a thousand counties.
-
 You need all three mods and the base CK3 game. DLCs are optional.
 
 [Visit OCR Support wiki if you haven't used it before.](https://github.com/Agamidae/CK3-OCR/wiki/)
+
+AGOT mod is still in development and only has Westeros, but in a lot of detail, with more than a thousand counties.
+
+There is also only one start date, Robert's Rebellion.
 
 # Load order
 
