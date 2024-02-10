@@ -1,7 +1,14 @@
 ﻿l_simp_chinese:
-agot_ocr_version: "OCR AGOT version 1.1.1"
-agot_ocr_mod_changes: "OCR AGOT Changes:\nUpdated to the latest version of AGOT.\nMade punishment events available without the royal court DLC.\nUpdated coordinates, they were messed up for seas and rivers.\nFixed ruler browser.\nRenamed castellan's tasks again, so they aren't all Oversee Realm.\nAdded descriptions for three new thronerooms: Iron Throne, Pyke and Casterly Rock.\nFixed rescue wars.\nMade AGOT features available for sighted players"
+agot_ocr_version: "OCR AGOT version 1.1.2"
+agot_ocr_mod_changes: "OCR AGOT Changes:\nFixed not being able to select a champion in the trial by combat.\nAdded skills to that character selection.\nChanged court descriptions so they don't reference real world geography."
 # pyke_court: "Mediterranean style court, with marble columns and walls supporting a vaulted ceiling. A fireplace is lit in the corner and sunlight streams through a large rose window. \n[Character.Custom('MediGrandeur')]"
 pyke_court: "A cave of old stone, with large sculptures of squids on the walls and twisting pillars.\nThe Seastone Chair stands tall, a metal throne in the shape of a kraken, with tentacles spread out.\nA storm often rages outside the windows, covered by iron grates with kraken designs."
 ironthrone_court: "A large and shadowed hall with tall pillars, flaming braziers and stained glass windows portraying the Seven Gods.\nAt the apse, the Iron Throne towers over all like a great hulking beast.\nSix meters high, it is built from a thousand swords of fallen enemies of Aegon the Conqueror, fused by fire of his dragon Balerion."
 casterlyrock_court: "A massive cavern, with stairs leading to a raised gallery, where a tall golden lion stands above the throne. Behind it a few windows are cut through the rock and two braziers burn before it.\nThe floors and lower walls of the cavern are lined with marble and decorated with gold."
+mediterranean_court: "Coastal style court, with marble columns and walls supporting a vaulted ceiling. A fireplace is lit in the corner and sunlight streams through a large rose window. \n[Character.Custom('MediGrandeur')]"
+
+western_court: "Classic style court, with rough stone block walls and arching narrow windows. It's warmed by a big fireplace, with chandeliers hanging from a sloping wooden roof.\n[Character.Custom('WestGrandeur')]"
+
+mena_court: "Southern style court, with thin marble columns and geometric mozaics adorning the walls. Sun dapples the floor through latticed window screens.\n[Character.Custom('MenaGrandeur')]"
+
+indian_court: "Exotic court, with stone walls carved in intricate bas-reliefs, wide faceted columns and tall windows in ornate alcoves.\n[Character.Custom('IndianGrandeur')]"

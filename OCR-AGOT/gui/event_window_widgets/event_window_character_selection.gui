@@ -15,7 +15,7 @@ vbox = {
 
 			text_single = {
 				layoutpolicy_horizontal = expanding
-				raw_text = "Select target:"
+				raw_text = "Select target. Right-click to open their view."
 			}
 			vbox = {
 				datamodel = "[GetPlayer.MakeScope.GetList('possible_characters')]"
@@ -26,7 +26,7 @@ vbox = {
 					char_name = {
 						layoutpolicy_horizontal = expanding
 						datacontext = "[Scope.GetCharacter]"
-						blockoverride "click" {
+						blockoverride "onclick" {
 							onclick = "[GetScriptedGui('si_set_selected_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_char', Character.MakeScope).End)]"
 							using = char_rightclick
 						}
@@ -37,6 +37,18 @@ vbox = {
 								visible = "[Scope.Var('si_selecting_character').IsSet]"
 								raw_text = "Selected,"
 							}
+						}
+						blockoverride "extra" {
+							text_single = {
+								raw_text = "Skills:"
+							}
+
+							hbox = {
+								hbox_skills_grid_character = {
+								}
+								expand = {}
+							}
+
 						}
 					}
 				}

@@ -1,6 +1,7 @@
 types AGOT_OCR_Types {
-	type character_name_text = container {
+	type character_name_text = flowcontainer {
 		ignoreinvisible = yes
+		spacing = 3
 
 		text_single = {
 			visible = "[Or(GetScriptedGui('agot_ser_knight').IsShown(GuiScope.SetRoot(Character.MakeScope).End), GetScriptedGui('agot_ser_knight_bastard').IsShown(GuiScope.SetRoot(Character.MakeScope).End))]"
@@ -206,7 +207,7 @@ types AGOT_OCR_Types {
 				# text = "[CharacterWindow.GetCharacter.Custom('RuinsHistory')]"
 				text = "ruin_history_generic"
 			}
-		
+
 			expand = {}
 		}
 
