@@ -1,0 +1,50 @@
+vbox = {
+	name = "event_window_widget_enter_text_artifact"
+
+	vbox = {
+		layoutpolicy_horizontal = expanding
+
+		text_single = {
+			layoutpolicy_horizontal = expanding
+			text = event_window_widget_enter_name_prompt
+		}
+
+		text_single = {
+			layoutpolicy_horizontal = expanding
+			raw_text = "You may start typing."
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			margin_widget = {
+				margin_left = 5
+				margin_right = 5
+				margin_top = 5
+				size = { 140 30 }
+
+				using = tooltip_es
+
+				background = {
+					texture = "gfx/interface/component_tiles/tile_editbox.dds"
+					spriteType = Corneredtiled
+					spriteborder = { 16 16 }
+				}
+
+				editbox = {
+					name = "enter_text"
+					ontextedited = "[EventWindowWidgetEnterText.OnEdit]"
+					focus_on_visible = yes
+
+					align = top|left
+					size = {100% 100%}
+					alwaystransparent = no
+					focuspolicy = all
+					default_format = "#high"
+				}
+			}
+		}
+		expand = {}
+	}
+}

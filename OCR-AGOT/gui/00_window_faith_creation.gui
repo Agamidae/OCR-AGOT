@@ -10,7 +10,6 @@ types OCR {
 		using = vanilla
 		# agot modified
 		size = { 1600 950 }
-		using = vanilla
 		layer = middle
 
 		using = Window_Background

@@ -1,0 +1,175 @@
+types OCR {
+  type button_agot_laws = hbox {
+    layoutpolicy_horizontal = expanding
+    visible = "[Not(GetVariableSystem.Exists('realm_tabs'))]"
+
+    button_text = {
+      blockoverride "text" {
+        onclick = "[GetVariableSystem.Set( 'realm_laws_tab', 'agot_laws' )]"
+        raw_text = "AGOT_MY_REALM_WINDOW_LIEGE_REALM_LAWS_TAB"
+        blockoverride "extra" {
+          comma = {}
+          text_single = {
+            raw_text = "Shift W."
+          }
+        }
+      }
+    }
+
+    expand = {}
+  }
+
+  type vbox_agot_laws = vbox {
+    layoutpolicy_horizontal = expanding
+    visible = "[GetVariableSystem.HasValue( 'realm_tabs', 'agot_laws' )]"
+
+    #AGOT Added
+    hbox = {
+      name = "laws_window_tabs"
+      layoutpolicy_horizontal = expanding
+      visible = "[GetPlayer.HasLiege]"
+
+      button_text = {
+        name = "agot_my_realm_laws_tab"
+        onclick = "[GetVariableSystem.Clear( 'realm_laws_tab' )]"
+        visible = "[GetVariableSystem.HasValue( 'realm_laws_tab', '2' )]"
+        blockoverride "pre" {
+          text_single = {
+            raw_text = "Switch to"
+          }
+        }
+
+        blockoverride "text" {
+          text = "AGOT_MY_REALM_WINDOW_MY_REALM_LAWS_TAB"
+        }
+      }
+
+      button_text = {
+        name = "agot_liege_realm_laws_tab"
+        onclick = "[GetVariableSystem.Set( 'realm_laws_tab', '2' )]"
+        visible = "[Not(GetVariableSystem.HasValue( 'realm_laws_tab', '2' ))]"
+
+        blockoverride "pre" {
+          text_single = {
+            raw_text = "Switch to"
+          }
+        }
+        blockoverride "text" {
+          text = "AGOT_MY_REALM_WINDOW_LIEGE_REALM_LAWS_TAB"
+        }
+
+      }
+
+      expand = {}
+    }
+
+    #AGOT Added
+    hbox = {
+      name = "tab_liege_realm_laws"
+      #aithnea to do make not visible when no liege
+      visible = "[GetVariableSystem.HasValue( 'realm_laws_tab', '2' )]"
+      layoutpolicy_horizontal = expanding
+      layoutpolicy_vertical = expanding
+      datacontext = "[MyRealmWindow.GetCharacter.GetLiege]"
+
+      scrollbox = {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+
+        blockoverride "scrollbox_content" {
+          vbox = {
+            datamodel = "[MyRealmWindow.GetRealmLaws]"
+            datacontext = "[MyRealmWindow.GetCharacter.GetLiege]"
+            layoutpolicy_horizontal = expanding
+
+            item = {
+              vbox = {
+                layoutpolicy_horizontal = expanding
+                datacontext = "[GuiLawGroup.GetLawGroup]"
+                visible = "[And( GuiLawGroup.GetLawGroup.HasFlag( 'agot_slavery_law' ), GuiLawGroup.IsAvailable )]"
+
+                text_single = {
+                  layoutpolicy_horizontal = expanding
+                  raw_text = "[LawGroup.GetName]."
+                }
+
+                button_text = {
+                  datacontext = "[Character.GetActiveLawInGroupWithFlag( 'agot_slavery_law' )]"
+                  tooltipwidget = { general_law_tooltip = {} }
+                  using = tooltip_ws
+                  layoutpolicy_horizontal = expanding
+                  blockoverride "text" {
+                    raw_text = "[Law.GetName]."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #AGOT Added
+    hbox = {
+      name = "tab_realm_laws"
+      visible = "[Not(GetVariableSystem.Exists( 'realm_laws_tab' ) )]"
+      layoutpolicy_horizontal = expanding
+      layoutpolicy_vertical = expanding
+
+      scrollbox = {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+
+        blockoverride "scrollbox_content" {
+          vbox = {
+            datamodel = "[MyRealmWindow.GetRealmLaws]"
+            layoutpolicy_horizontal = expanding
+
+            item = {
+              vbox = {
+                layoutpolicy_horizontal = expanding
+                datacontext = "[GuiLawGroup.GetLawGroup]"
+                visible = "[And( GuiLawGroup.GetLawGroup.HasFlag( 'agot_realm_law' ), GuiLawGroup.IsAvailable )]"
+
+                text_single = {
+                  layoutpolicy_horizontal = expanding
+                  raw_text = "[LawGroup.GetName]."
+                }
+
+                vbox = {
+                  datamodel = "[GuiLawGroup.GetLaws]"
+                  layoutpolicy_horizontal = expanding
+
+                  item = {
+                    button_text = {
+                      datacontext = "[GuiLaw.GetLaw]"
+                      layoutpolicy_horizontal = expanding
+                      blockoverride "pre" {
+                        text_single = {
+                          raw_text = "Can't pick"
+                          visible = "[Not(Or(GuiLaw.CanEnact, GuiLaw.IsEnacted))]"
+                        }
+                      }
+                      blockoverride "selected" {
+                        visible = "[GuiLaw.IsEnacted]"
+                      }
+                      blockoverride "text" {
+                        raw_text = "[Law.GetName]."
+                      }
+                      enabled = "[Or(GuiLaw.CanEnact, GuiLaw.IsEnacted)]"
+                      down = "[GuiLaw.IsEnacted]"
+                      alwaystransparent = "[GuiLaw.IsEnacted]"
+                      onclick = "[GuiLaw.Enact]"
+                      tooltipwidget = { pass_law_tooltip = {} }
+                      using = tooltip_below
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

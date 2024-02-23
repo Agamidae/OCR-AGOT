@@ -1,0 +1,23 @@
+types OCR {
+  type button_agot_three_daughters = button_text {
+    layoutpolicy_horizontal = expanding
+    shortcut = mapmode_kingdoms_secondary
+    name = "three_daughters"
+    blockoverride "pre" {
+      text_single = {
+        raw_text = "Open"
+      }
+    }
+    blockoverride "text" {
+      text = "HIGH_COUNCIL_TRIARCHY"
+    }
+    blockoverride "extra" {
+      comma = {}
+      text_single = {
+        raw_text = "i."
+      }
+    }
+    visible = "[GetScriptedGui('is_three_daughters').IsShown(GuiScope.SetRoot(TitleViewWindow.GetTitle.MakeScope).End)]"
+    onclick = "[GetVariableSystem.Toggle('window_three_daughters')]"
+  }
+}

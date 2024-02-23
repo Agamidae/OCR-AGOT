@@ -496,11 +496,22 @@ types OCR {
 							visible = "[GetPlayer.MakeScope.Var( 'sent_to_wall' ).IsSet]"
 						}
 					}
-					# Expel selected traitor
-					MegaWarsTraitorsButton_ocr = {
+					MegaWarsTraitorsButton_ocr = { # Send selected traitor to the Wall
+						blockoverride "text" { text = MW_GUI_SEND_TO_ESSOS }
 						blockoverride "shortcut" {
 							shortcut = increase_speed_2
 							text_single = { resizeparent = yes raw_text = "X,"	}
+						}
+						datacontext = "[GetScriptedGui( 'agot_mw_gui_traitors_essos' )]"
+						blockoverride "selected" {
+							visible = "[GetPlayer.MakeScope.Var( 'sent_to_essos' ).IsSet]"
+						}
+					}
+					# Expel selected traitor
+					MegaWarsTraitorsButton_ocr = {
+						blockoverride "shortcut" {
+							shortcut = character_finder
+							text_single = { resizeparent = yes raw_text = "C,"	}
 						}
 						blockoverride "text" { text = MW_GUI_EXPEL_TRAITOR }
 						datacontext = "[GetScriptedGui( 'agot_mw_gui_traitors_expel' )]"
@@ -511,8 +522,8 @@ types OCR {
 					# Expel selected traitor's close family members
 					MegaWarsTraitorsButton_ocr = {
 						blockoverride "shortcut" {
-							shortcut = character_finder
-							text_single = { resizeparent = yes raw_text = "C,"	}
+							shortcut = find_title_shortcut
+							text_single = { resizeparent = yes raw_text = "V,"	}
 						}
 						blockoverride "text" { text = MW_GUI_EXPEL_TRAITORS_FAMILY }
 						datacontext = "[GetScriptedGui( 'agot_mw_gui_traitors_expel_family' )]"
@@ -523,8 +534,8 @@ types OCR {
 					# Expel selected traitor's dynasty members
 					MegaWarsTraitorsButton_ocr = {
 						blockoverride "shortcut" {
-							shortcut = find_title_shortcut
-							text_single = { resizeparent = yes raw_text = "V,"	}
+							shortcut = army_merge
+							text_single = { resizeparent = yes raw_text = "G,"	}
 						}
 						blockoverride "text" { text = MW_GUI_EXPEL_TRAITORS_HOUSE }
 						datacontext = "[GetScriptedGui( 'agot_mw_gui_traitors_expel_house' )]"

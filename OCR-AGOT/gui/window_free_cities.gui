@@ -1,0 +1,288 @@
+window = {
+	size = { 100% 100% }
+	alwaystransparent = yes
+	name = "window_three_daughters"
+	widgetid = "window_three_daughters"
+	visible = "[And(And(GetVariableSystem.Exists('window_three_daughters'), GetPlayer.IsValid), Not(IsGameViewOpen('character')))]"
+	layer = top
+
+	state = {
+		name = _show
+		using = Sound_WindowShow_Standard
+	}
+
+	state = {
+		name = _hide
+		using = Sound_WindowHide_Standard
+	}
+
+	window_free_cities_old = {}
+
+	window_ocr = {
+		blockoverride "ocr_header" {
+			header_text = {
+				layoutpolicy_horizontal = expanding
+
+				blockoverride "header_text"
+				{
+					text = "THREE_DAUGHTERS"
+				}
+
+				blockoverride "button_close"
+				{
+					onclick = "[GetVariableSystem.Clear( 'window_three_daughters' )]"
+					onclick = "[Set('high_council_desc', 'yes')]"
+				}
+			}
+		}
+		blockoverride "ocr_content" {
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						visible = "[And(Not(Is('high_council_desc')), Not(Is('daughter_magister')))]"
+
+						text_multi_wide = {
+							text = "high_council_description"
+						}
+
+						expand = {}
+					}
+
+					button = {
+						shortcut = close_window
+						onclick = "[Clear('daughter_magister')]"
+						visible = "[Is('daughter_magister')]"
+					}
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[Or(Isnt('daughter_magister'), Has('daughter_magister', 'tyrosh'))]"
+
+							button_text = {
+								layoutpolicy_horizontal = expanding
+								shortcut = speed_1
+								onclick = "[Set('daughter_magister', 'tyrosh')]"
+								blockoverride "pre" {
+									text_single = {
+										raw_text = "1,"
+									}
+								}
+								blockoverride "text" {
+									raw_text = "TYROSH"
+								}
+							}
+
+							char_name = {
+								layoutpolicy_horizontal = expanding
+								datacontext = "[GetTitleByKey('k_tyrosh').GetHolder]"
+								visible = "[GetTitleByKey('k_tyrosh').HasHolder]"
+								blockoverride "pre" {
+									text_single = {
+										raw_text = "Held by"
+									}
+								}
+								blockoverride "opinion" {
+									visible = "[Not(Character.IsLocalPlayer)]"
+								}
+							}
+							char_name = {
+								layoutpolicy_horizontal = expanding
+								datacontext = "[GetTitleByKey('d_tyrosh').GetHolder]"
+								visible = "[And(Not(GetTitleByKey('k_tyrosh').HasHolder), GetTitleByKey('d_tyrosh').HasHolder) ]"
+								blockoverride "pre" {
+									text_single = {
+										raw_text = "Held by"
+									}
+								}
+								blockoverride "opinion" {
+									visible = "[Not(Character.IsLocalPlayer)]"
+								}
+							}
+
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								raw_text = "[GetDataModelSize(GetGlobalList('tyrosh_magisters'))] Magisters:"
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								block "datamodel" {
+									datamodel = "[GetGlobalList('tyrosh_magisters')]"
+								}
+								item = {
+									char_name = {
+										layoutpolicy_horizontal = expanding
+										datacontext = "[Scope.GetCharacter]"
+										blockoverride "opinion" {
+											visible = "[Not(Character.IsLocalPlayer)]"
+										}
+										blockoverride "extra" {
+											text_single = {
+												raw_text = "[Character.RealmSize] counties,"
+											}
+										}
+									}
+								}
+							}
+						}
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[Or(Isnt('daughter_magister'), Has('daughter_magister', 'lys'))]"
+
+							button_text = {
+								layoutpolicy_horizontal = expanding
+								shortcut = speed_2
+								onclick = "[Set('daughter_magister', 'lys')]"
+								blockoverride "pre" {
+									text_single = {
+										raw_text = "2,"
+									}
+								}
+								blockoverride "text" {
+									raw_text = "LYS"
+								}
+							}
+
+							char_name = {
+								layoutpolicy_horizontal = expanding
+								datacontext = "[GetTitleByKey('k_lys').GetHolder]"
+								visible = "[GetTitleByKey('k_lys').HasHolder]"
+								blockoverride "pre" {
+									text_single = {
+										raw_text = "Held by"
+									}
+								}
+								blockoverride "opinion" {
+									visible = "[Not(Character.IsLocalPlayer)]"
+								}
+							}
+							char_name = {
+								layoutpolicy_horizontal = expanding
+								datacontext = "[GetTitleByKey('d_lys').GetHolder]"
+								visible = "[And(Not(GetTitleByKey('k_lys').HasHolder), GetTitleByKey('d_lys').HasHolder)]"
+								blockoverride "pre" {
+									text_single = {
+										raw_text = "Held by"
+									}
+								}
+								blockoverride "opinion" {
+									visible = "[Not(Character.IsLocalPlayer)]"
+								}
+							}
+
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								raw_text = "[GetDataModelSize(GetGlobalList('lys_magisters'))] Magisters:"
+							}
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								block "datamodel" {
+									datamodel = "[GetGlobalList('lys_magisters')]"
+								}
+								item = {
+									char_name = {
+										layoutpolicy_horizontal = expanding
+										datacontext = "[Scope.GetCharacter]"
+										blockoverride "opinion" {
+											visible = "[Not(Character.IsLocalPlayer)]"
+										}
+										blockoverride "extra" {
+											text_single = {
+												raw_text = "[Character.RealmSize] counties,"
+											}
+										}
+									}
+								}
+							}
+						}
+
+						vbox = {
+						  layoutpolicy_horizontal = expanding
+						  visible = "[Or(Isnt('daughter_magister'), Has('daughter_magister', 'myr'))]"
+
+						  button_text = {
+								layoutpolicy_horizontal = expanding
+						    shortcut = speed_3
+						    onclick = "[Set('daughter_magister', 'myr')]"
+						    blockoverride "pre" {
+						      text_single = {
+						        raw_text = "3,"
+						      }
+						    }
+						    blockoverride "text" {
+						      raw_text = "MYR"
+						    }
+						  }
+
+						  char_name = {
+						    layoutpolicy_horizontal = expanding
+						    datacontext = "[GetTitleByKey('k_myr').GetHolder]"
+						    visible = "[GetTitleByKey('k_myr').HasHolder]"
+						    blockoverride "pre" {
+						      text_single = {
+						        raw_text = "Held by"
+						      }
+						    }
+						    blockoverride "opinion" {
+						      visible = "[Not(Character.IsLocalPlayer)]"
+						    }
+						  }
+						  char_name = {
+						    layoutpolicy_horizontal = expanding
+						    datacontext = "[GetTitleByKey('d_myr').GetHolder]"
+						    visible = "[And(Not(GetTitleByKey('k_myr').HasHolder), GetTitleByKey('d_myr').HasHolder)]"
+						    blockoverride "pre" {
+						      text_single = {
+						        raw_text = "Held by"
+						      }
+						    }
+						    blockoverride "opinion" {
+						      visible = "[Not(Character.IsLocalPlayer)]"
+						    }
+						  }
+
+						  text_single = {
+						    layoutpolicy_horizontal = expanding
+						    raw_text = "[GetDataModelSize(GetGlobalList('myr_magisters'))] Magisters:"
+						  }
+
+						  vbox = {
+						    layoutpolicy_horizontal = expanding
+						    block "datamodel" {
+						      datamodel = "[GetGlobalList('myr_magisters')]"
+						    }
+						    item = {
+						      char_name = {
+						        layoutpolicy_horizontal = expanding
+						        datacontext = "[Scope.GetCharacter]"
+						        blockoverride "opinion" {
+						          visible = "[Not(Character.IsLocalPlayer)]"
+						        }
+										blockoverride "extra" {
+											text_single = {
+												raw_text = "[Character.RealmSize] counties,"
+											}
+										}
+						      }
+						    }
+						  }
+						}
+					}
+				}
+
+				expand = {}
+			}
+		}
+	}
+}

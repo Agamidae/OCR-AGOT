@@ -223,7 +223,6 @@ types OCR {
         hbox = {
           layoutpolicy_horizontal = expanding
           visible = "[GetScriptedGui('rv_rescue_visible_trigger').IsShown( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'rv_prisoner_target', Scope.GetCharacter.MakeScope ).End )]"
-          layoutpolicy_horizontal = expanding
           text_multi = {
             text = "rv_release_effect"
             layoutpolicy_horizontal = expanding

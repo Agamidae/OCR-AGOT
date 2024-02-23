@@ -68,6 +68,8 @@ types AGOT_OCR_Types {
 
       blockoverride "scrollbox_content"
       {
+        patron_select_confirm = { }
+
         text_single = {
           layoutpolicy_horizontal = expanding
           raw_text = "[Localize('PATRON_SELECTION_TOOLTIP')]."
@@ -115,7 +117,7 @@ types AGOT_OCR_Types {
     button_text = {
       layoutpolicy_horizontal = expanding
       onclick = "[GetVariableSystem.Set('selected_patron', Scope.GetFlagName)]"
-      onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'patron_name', MakeScopeFlag( GetVariableSystem.Get( 'selected_patron' ))).End )]"
+      onclick = "[GetVariableSystem.Set('show_patron_select_confirm', 'true')]"
       enabled = "[Or(EqualTo_string(GetPlayer.MakeScope.Var('patron_god').GetFlagName, Scope.GetFlagName), ScriptedGui.IsValid(GuiScope.SetRoot( GetPlayer.MakeScope ).End))]"
 
       blockoverride "disabled" {
@@ -150,71 +152,142 @@ types AGOT_OCR_Types {
     }
   }
 
+  type patron_select_confirm = vbox {
+		name = "patron_select_confirm"
+
+		visible = "[And(GetVariableSystem.HasValue('show_patron_select_confirm','true'), Not(EqualTo_string(GetPlayer.MakeScope.Var('patron_god').GetFlagName,GetVariableSystem.Get('selected_patron'))))]"
+
+		datacontext = "[GetVariableSystem]"
+		datacontext = "[GetScriptedGui('choose_patron_generic')]"
+
+		using = Window_Background
+		using = Window_Decoration_Spike
+
+		# if need to be a modal can be enable by uncommenting the line below
+		#modal = yes
+		#modality = all
+
+		state = {
+			name = _show
+			using = Animation_FadeIn_Quick
+			using = Sound_WindowShow_Standard
+		}
+		state = {
+			name = _hide
+			using = Animation_FadeOut_Quick
+			using = Sound_WindowHide_Standard
+		}
+
+		vbox = {
+      layoutpolicy_horizontal = expanding
+
+      text_single = {
+        layoutpolicy_horizontal = expanding
+        text = "[Localize(Concatenate('patron_god_', GetVariableSystem.Get('selected_patron')))]"
+      }
+
+      button_primary_text = {
+        layoutpolicy_horizontal = expanding
+        blockoverride "text" {
+          text = "patron_select_confirm"
+        }
+        onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('patron_name', MakeScopeFlag(GetVariableSystem.Get('selected_patron'))).End )]"
+        onclick = "[GetVariableSystem.Set('show_patron_select_confirm', 'false')]"
+      }
+
+      button_text = {
+        shortcut = close_window
+        layoutpolicy_horizontal = expanding
+        onclick = "[GetVariableSystem.Set('show_patron_select_confirm', 'false')]"
+        blockoverride "text" {
+          raw_text = "Cancel selection, Escape."
+        }
+      }
+
+      flowcontainer = {
+        ignoreinvisible = yes
+        layoutpolicy_horizontal = expanding
+
+        direction = vertical
+        text_multi_wide = {
+          text = "[Concatenate(Concatenate(Localize('select_patron_confirm_text_1'), Localize(Concatenate('patron_god_', GetVariableSystem.Get('selected_patron')))), Localize('select_patron_confirm_text_2'))]"
+        }
+        text_multi_wide = {
+          text = "[GetModifier(Concatenate('patron_', Concatenate(GetVariableSystem.Get('selected_patron') ,'_modifier'))).GetDescWithEffects]"
+        }
+        text_multi_wide = {
+          text = PATRON_SELECTION_TOOLTIP
+        }
+      }
+
+		}
+	}
+
   # we don't need to change special grouping, it's basically the same
   type vbox_agot_extra_doctrines = vbox {
     layoutpolicy_horizontal = expanding
 
 
-    text_single = {
-      layoutpolicy_horizontal = expanding
-      raw_text = "[GetDataModelSize(FaithWindow.GetGroupingHelper( 'belief' ).GetGrouping)] [Localize('FAITH_DOCTRINES_BELIEF')]."
-    }
-
-    vbox = {
-      datamodel = "[FaithWindow.GetGroupingHelper( 'belief' ).GetGrouping]"
-      layoutpolicy_horizontal = expanding
-
-      item = {
-        widget_doctrine_item_ocr = { }
-      }
-    }
-
-    text_single = {
-      layoutpolicy_horizontal = expanding
-      raw_text = "[GetDataModelSize(FaithWindow.GetGroupingHelper( 'practices' ).GetGrouping)] [Localize('FAITH_DOCTRINES_PRACTICES')]."
-    }
-
-    vbox = {
-      datamodel = "[FaithWindow.GetGroupingHelper( 'practices' ).GetGrouping]"
-      layoutpolicy_horizontal = expanding
-
-      item = {
-        widget_doctrine_item_ocr = { }
-      }
-    }
+    # text_single = {
+    #   layoutpolicy_horizontal = expanding
+    #   raw_text = "[GetDataModelSize(FaithWindow.GetGroupingHelper( 'belief' ).GetGrouping)] [Localize('FAITH_DOCTRINES_BELIEF')]."
+    # }
+    #
+    # vbox = {
+    #   datamodel = "[FaithWindow.GetGroupingHelper( 'belief' ).GetGrouping]"
+    #   layoutpolicy_horizontal = expanding
+    #
+    #   item = {
+    #     widget_doctrine_item_ocr = { }
+    #   }
+    # }
+    #
+    # text_single = {
+    #   layoutpolicy_horizontal = expanding
+    #   raw_text = "[GetDataModelSize(FaithWindow.GetGroupingHelper( 'practices' ).GetGrouping)] [Localize('FAITH_DOCTRINES_PRACTICES')]."
+    # }
+    #
+    # vbox = {
+    #   datamodel = "[FaithWindow.GetGroupingHelper( 'practices' ).GetGrouping]"
+    #   layoutpolicy_horizontal = expanding
+    #
+    #   item = {
+    #     widget_doctrine_item_ocr = { }
+    #   }
+    # }
   }
 
   type vbox_agot_extra_doctrines_create = vbox {
     layoutpolicy_horizontal = expanding
 
 
-    text_single = {
-      layoutpolicy_horizontal = expanding
-      raw_text = "[GetDataModelSize(FaithCreationWindow.GetGroupingHelper( 'belief' ).GetGrouping)] [Localize('FAITH_DOCTRINES_BELIEF')]."
-    }
-
-    vbox = {
-      datamodel = "[FaithCreationWindow.GetGroupingHelper( 'belief' ).GetGrouping]"
-      layoutpolicy_horizontal = expanding
-
-      item = {
-        widget_doctrine_selection_item_ocr = { }
-      }
-    }
-
-    text_single = {
-      layoutpolicy_horizontal = expanding
-      raw_text = "[GetDataModelSize(FaithCreationWindow.GetGroupingHelper( 'practices' ).GetGrouping)] [Localize('FAITH_DOCTRINES_PRACTICES')]."
-    }
-
-    vbox = {
-      datamodel = "[FaithCreationWindow.GetGroupingHelper( 'practices' ).GetGrouping]"
-      layoutpolicy_horizontal = expanding
-
-      item = {
-        widget_doctrine_selection_item_ocr = { }
-      }
-    }
+    # text_single = {
+    #   layoutpolicy_horizontal = expanding
+    #   raw_text = "[GetDataModelSize(FaithCreationWindow.GetGroupingHelper( 'belief' ).GetGrouping)] [Localize('FAITH_DOCTRINES_BELIEF')]."
+    # }
+    #
+    # vbox = {
+    #   datamodel = "[FaithCreationWindow.GetGroupingHelper( 'belief' ).GetGrouping]"
+    #   layoutpolicy_horizontal = expanding
+    #
+    #   item = {
+    #     widget_doctrine_selection_item_ocr = { }
+    #   }
+    # }
+    #
+    # text_single = {
+    #   layoutpolicy_horizontal = expanding
+    #   raw_text = "[GetDataModelSize(FaithCreationWindow.GetGroupingHelper( 'practices' ).GetGrouping)] [Localize('FAITH_DOCTRINES_PRACTICES')]."
+    # }
+    #
+    # vbox = {
+    #   datamodel = "[FaithCreationWindow.GetGroupingHelper( 'practices' ).GetGrouping]"
+    #   layoutpolicy_horizontal = expanding
+    #
+    #   item = {
+    #     widget_doctrine_selection_item_ocr = { }
+    #   }
+    # }
   }
 
   # hbox_character_subheading isn't used
